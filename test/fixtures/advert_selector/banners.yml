@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  start_time: 2012-09-25 15:28:58
+  end_time: 2012-09-25 15:28:58
+  target_view_count: 1
+  frequency: 1
+  delay_requests: 1
+  comment: MyText
+  confirmed: false
+  placement_id: 1
+
+two:
+  name: MyString
+  start_time: 2012-09-25 15:28:58
+  end_time: 2012-09-25 15:28:58
+  target_view_count: 1
+  frequency: 1
+  delay_requests: 1
+  comment: MyText
+  confirmed: false
+  placement_id: 1

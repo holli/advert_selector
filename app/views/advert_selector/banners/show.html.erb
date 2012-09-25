@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @banner.name %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @banner.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @banner.end_time %>
+</p>
+
+<p>
+  <b>Target view count:</b>
+  <%= @banner.target_view_count %>
+</p>
+
+<p>
+  <b>Frequency:</b>
+  <%= @banner.frequency %>
+</p>
+
+<p>
+  <b>Delay requests:</b>
+  <%= @banner.delay_requests %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @banner.comment %>
+</p>
+
+<p>
+  <b>Confirmed:</b>
+  <%= @banner.confirmed %>
+</p>
+
+<p>
+  <b>Placement:</b>
+  <%= @banner.placement_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_banner_path(@banner) %> |
+<%= link_to 'Back', banners_path %>

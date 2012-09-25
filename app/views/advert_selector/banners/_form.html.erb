@@ -1,0 +1,22 @@
+<%= simple_form_for(@banner, :html => {:class => 'form-horizontal'}) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name %>
+
+  <%= f.input :start_time, :as => 'string' %>
+  <%= f.input :end_time, :as => 'string' %>
+  <%= f.input :priority %>
+  <%= f.input :target_view_count %>
+  <%= f.input :fast_mode %>
+  <%= f.input :frequency %>
+  <%= f.input :comment, :input_html => {:rows => 5}  %>
+  <%= f.input :confirmed %>
+  <%= f.association :placement %>
+
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+
+<% end %>

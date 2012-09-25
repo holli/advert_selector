@@ -2,13 +2,82 @@
 <html>
 <head>
   <title>AdvertSelector</title>
+
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
+
   <%= stylesheet_link_tag    "advert_selector/application", :media => "all" %>
   <%= javascript_include_tag "advert_selector/application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="/">Advert selector</a>
+      <div class="nav-collapse collapse">
+        <p class="navbar-text pull-right">
+          Logged in as <a href="#" class="navbar-link">Username</a>
+        </p>
+        <ul class="nav">
+          <% [['Placements', placements_url],
+              ['Banners', banners_url]
+             ].each do |str, url| %>
+            <li><%= link_to str, url %></li>
+          <% end %>
+          <li class="active"></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Placements</li>
+          <% AdvertSelector::Placement.all.each do |placement| %>
+            <li><%= link_to placement.name, edit_placement_url(placement) %></li>
+          <% end %>
+          <li><%= link_to 'Create New', new_placement_url %></li>
+
+          <li class="nav-header">Banners</li>
+          <% AdvertSelector::Banner.limit(10).each do |banner| %>
+            <li><%= link_to "#{banner.name} -> #{banner.placement.name}", edit_banner_url(banner) %></li>
+          <% end %>
+
+          <li><%= link_to 'Show all', banners_url %></li>
+          <li><%= link_to 'Create New', new_banner_url %></li>
+        </ul>
+      </div><!--/.well -->
+    </div><!--/span-->
+
+
+    <div class="span9">
+      <%= yield %>
+    </div>
+
+
+  </div>
+</div>
 
 </body>
 </html>

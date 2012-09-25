@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @placement.name %>
+</p>
+
+<p>
+  <b>Development code:</b>
+  <%= @placement.development_code %>
+</p>
+
+<p>
+  <b>Conflicting placements array:</b>
+  <%= @placement.conflicting_placements_array %>
+</p>
+
+
+<%= link_to 'Edit', edit_placement_path(@placement) %> |
+<%= link_to 'Back', placements_path %>

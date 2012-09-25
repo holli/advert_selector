@@ -1,0 +1,27 @@
+<h1>Listing placements</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Development code</th>
+    <th>Conflicting placements array</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @placements.each do |placement| %>
+  <tr>
+    <td><%= placement.name %></td>
+    <td><%= placement.development_code %></td>
+    <td><%= placement.conflicting_placements_array %></td>
+    <td><%= link_to 'Show', placement %></td>
+    <td><%= link_to 'Edit', edit_placement_path(placement) %></td>
+    <td><%= link_to 'Destroy', placement, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Placement', new_placement_path %>

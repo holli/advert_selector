@@ -1,0 +1,21 @@
+<%= simple_form_for(@placement, :html => {:class => 'form-horizontal'}) do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= f.input :name %>
+  <%#= f.input :name, :hint => 'Same name is used in rails views, careful when changing.' %>
+  <%= f.input :request_delay %>
+  <%= f.input :development_code, :input_html => {:rows => 5} %>
+
+
+  <% if false %>
+      <div class="form-inputs">
+        <%= f.input :conflicting_placements_array %>
+      </div>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+<% end %>

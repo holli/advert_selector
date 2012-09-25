@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  development_code: MyText
+  conflicting_placements_array: MyText
+
+two:
+  name: MyString
+  development_code: MyText
+  conflicting_placements_array: MyText
