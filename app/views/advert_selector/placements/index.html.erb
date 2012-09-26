@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Development code</th>
     <th>Conflicting placements array</th>
     <th></th>
     <th></th>
@@ -13,7 +12,6 @@
 <% @placements.each do |placement| %>
   <tr>
     <td><%= placement.name %></td>
-    <td><%= placement.development_code %></td>
     <td><%= placement.conflicting_placements_array %></td>
     <td><%= link_to 'Show', placement %></td>
     <td><%= link_to 'Edit', edit_placement_path(placement) %></td>

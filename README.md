@@ -69,9 +69,9 @@ in views/layouts/your_view
 
 - Item
   - belongs_to :attachable, :polymorphic => true
-  - content_for
-  - helper
-  - text
+  - content_for_name
+  - helper_name 'advert_selector_xxx'
+  - content
 
 
 

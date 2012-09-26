@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  master_id: 1
+  master_type: MyString
+  name: MyString
+  content_for: false
+  content: MyText
+
+two:
+  master_id: 1
+  master_type: MyString
+  name: MyString
+  content_for: false
+  content: MyText

@@ -1,18 +1,38 @@
 <%= simple_form_for(@banner, :html => {:class => 'form-horizontal'}) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :name %>
+  <div class="row">
+    <div class="span5">
 
-  <%= f.input :start_time, :as => 'string' %>
-  <%= f.input :end_time, :as => 'string' %>
-  <%= f.input :priority %>
-  <%= f.input :target_view_count %>
-  <%= f.input :fast_mode %>
-  <%= f.input :frequency %>
-  <%= f.input :comment, :input_html => {:rows => 5}  %>
-  <%= f.input :confirmed %>
-  <%= f.association :placement %>
+      <%= f.input :name %>
 
+      <%= f.input :start_time, :as => 'string' %>
+      <%= f.input :end_time, :as => 'string' %>
+      <%= f.input :priority %>
+      <%= f.input :target_view_count %>
+      <%= f.input :fast_mode %>
+      <%= f.input :frequency %>
+      <%= f.input :comment, :input_html => {:rows => 5}  %>
+      <%= f.input :confirmed %>
+      <%= f.association :placement %>
+
+    </div>
+
+    <div class="span4">
+      <% @banner.helper_items.build
+         @banner.helper_items.build if @banner.helper_items.size < 2
+      %>
+      <%= f.fields_for :helper_items do |f_hi| %>
+        <fieldset style="margin-bottom: 20px; border-bottom: 1px solid lightgray;">
+        <%= f_hi.input :name, :label => 'HelperItem Name' %>
+        <%= f_hi.input :content_for %>
+        <%= f_hi.input :position %>
+        <%= f_hi.input :content, :input_html => {:rows => (f_hi.object.content_for? ? 5 : 1) } %>
+        </fieldset>
+      <% end %>
+    </div>
+
+  </div>
 
   <div class="form-actions">
     <%= f.button :submit %>

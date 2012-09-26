@@ -2,9 +2,12 @@ module AdvertSelector
   class Banner < ActiveRecord::Base
     attr_accessible :comment, :confirmed, :start_time, :end_time,
                     :frequency, :name, :placement_id, :target_view_count, :priority,
-                    :fast_mode
+                    :fast_mode, :helper_items_attributes
 
     belongs_to :placement, :inverse_of => :banners
+
+    has_many :helper_items, :as => :master, :order => "position", :dependent => :destroy
+    accepts_nested_attributes_for :helper_items
 
     # validate placement
 
@@ -54,5 +57,17 @@ module AdvertSelector
       end
     end
 
+
+    after_save :after_save_destroy_empty_helpers
+    def after_save_destroy_empty_helpers
+      helper_items.each do |hi|
+        hi.destroy if hi.blank?
+      end
+    end
+
+
+
+
   end
+
 end

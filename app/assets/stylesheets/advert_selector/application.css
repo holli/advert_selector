@@ -21,3 +21,9 @@ body {
 .sidebar-nav {
     padding: 9px 0;
 }
+
+.form-horizontal .control-group { margin-bottom: 10px; }
+
+label, input, button, select, textarea { font-size: 12px !important; }
+
+

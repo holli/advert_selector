@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Master:</b>
+  <%= @helper_item.master_id %>
+</p>
+
+<p>
+  <b>Master type:</b>
+  <%= @helper_item.master_type %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @helper_item.name %>
+</p>
+
+<p>
+  <b>Content for:</b>
+  <%= @helper_item.content_for %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @helper_item.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_helper_item_path(@helper_item) %> |
+<%= link_to 'Back', helper_items_path %>

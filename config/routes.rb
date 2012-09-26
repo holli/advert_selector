@@ -1,5 +1,9 @@
 AdvertSelector::Engine.routes.draw do
-  resources :banners
+
+
+  resources :banners do
+    #resources :helper_items
+  end
 
   resources :placements
 

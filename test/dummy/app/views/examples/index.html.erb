@@ -2,6 +2,9 @@
 
 <p>Find me in app/views/examples/index.html.erb</p>
 
+<%= link_to 'nopriority', '/' %> - <%= link_to 'priority=true', '/?priority=true' %>
+
+
 <hr>
 
 <%#= AdvertSelector::initialize_banners %>
@@ -9,7 +12,11 @@
 
 <hr>
 
-<%= content_for_placement(:leaderboard) %>
+<%= content_for(:banner_leaderboard) %>
+
+<hr>
+
+<%#= test_original %>
 
 <hr>
 

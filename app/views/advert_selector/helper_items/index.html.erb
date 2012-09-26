@@ -1,0 +1,31 @@
+<h1>Listing helper_items</h1>
+
+<table>
+  <tr>
+    <th>Master</th>
+    <th>Master type</th>
+    <th>Name</th>
+    <th>Content for</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @helper_items.each do |helper_item| %>
+  <tr>
+    <td><%= helper_item.master_id %></td>
+    <td><%= helper_item.master_type %></td>
+    <td><%= helper_item.name %></td>
+    <td><%= helper_item.content_for %></td>
+    <td><%= helper_item.content %></td>
+    <td><%= link_to 'Show', helper_item %></td>
+    <td><%= link_to 'Edit', edit_helper_item_path(helper_item) %></td>
+    <td><%= link_to 'Destroy', helper_item, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Helper item', new_helper_item_path %>

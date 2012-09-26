@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925122858) do
+ActiveRecord::Schema.define(:version => 20120926132649) do
 
   create_table "advert_selector_banners", :force => true do |t|
     t.string   "name",                                  :null => false
@@ -28,9 +28,19 @@ ActiveRecord::Schema.define(:version => 20120925122858) do
     t.datetime "updated_at",                            :null => false
   end
 
+  create_table "advert_selector_helper_items", :force => true do |t|
+    t.integer  "master_id"
+    t.string   "master_type"
+    t.integer  "position"
+    t.string   "name"
+    t.boolean  "content_for"
+    t.text     "content"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "advert_selector_placements", :force => true do |t|
     t.string   "name",                         :null => false
-    t.text     "development_code"
     t.integer  "request_delay"
     t.text     "conflicting_placements_array"
     t.datetime "created_at",                   :null => false
