@@ -15,24 +15,40 @@ module AdvertSelector
       @name_sym ||= name.downcase.to_sym
     end
 
-    def view_count_per_day
-      @view_count_per_day ||=
-          if !end_time.nil? && !start_time.nil? && !target_view_count.nil?
-            days_total = ((end_time - start_time)/1.day).ceil
-            target_view_count / days_total
+    def show_today_has_viewcounts?(current_view_count = nil)
+      return true if target_view_count.nil?
+
+      current_view_count = running_view_count if current_view_count.nil?
+
+      return false if current_view_count >= target_view_count
+
+      @show_now_today_target ||=
+          if target_view_count.nil? || end_time.nil? || end_time < 24.hours.from_now
+            true
           else
-            nil
+            #view_count_remaining = target_view_count - current_view_count
+
+            total_days = ((end_time - start_time)/1.day).round
+            daily_view_count = target_view_count/total_days
+
+            days_ending_today = ((Time.now.end_of_day - start_time)/1.day).round
+            days_ending_today * daily_view_count
           end
+
+      @show_now_today_target == true || current_view_count < @show_now_today_target
     end
 
     def show_now_basics?
-      view_count = running_view_count
+      confirmed? &&
+        (start_time.nil? || start_time < Time.now) &&
+        (end_time.nil? || Time.now < end_time) &&
+        show_today_has_viewcounts?
+    end
 
-      basics = confirmed? &&
-          (start_time.nil? || start_time < Time.now) &&
-          (end_time.nil? || Time.now < end_time) &&
-          (target_view_count.nil? || view_count < target_view_count) &&
-          (view_count_per_day.nil? || view_count < ((Time.now - start_time)/1.day).ceil * view_count_per_day)
+    def reload
+      super
+      @show_now_today_target = nil
+      @name_sym = nil
     end
 
     def cache_key
@@ -64,9 +80,6 @@ module AdvertSelector
         hi.destroy if hi.blank?
       end
     end
-
-
-
 
   end
 

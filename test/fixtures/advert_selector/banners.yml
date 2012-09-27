@@ -3,8 +3,8 @@
 coke:
   placement: leaderboard
   name: Coke
-  start_time: <%= Time.now.at_beginning_of_day.to_s(:db) %>
-  end_time: <%= 10.days.from_now.at_beginning_of_day.to_s(:db) %>
+  start_time: <%= 5.days.ago.at_beginning_of_day.to_s(:db) %>
+  end_time: <%= 5.days.from_now.at_beginning_of_day.to_s(:db) %>
   target_view_count: 1000
   running_view_count: 100
   frequency: nil
