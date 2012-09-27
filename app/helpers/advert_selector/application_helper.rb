@@ -43,7 +43,13 @@ module AdvertSelector
       end
 
     rescue => e
-      # todo: exception catcher here, log to rails cache and display in the main page
+      begin
+        # todo: exception catcher here, log to rails cache and display in the main page
+        str = "Error with #{banner.name} in placement #{banner.placement.name}.\n#{Time.now.iso8601} - #{request.url} - #{params.inspect}\n#{e.inspect}\n\n#{e.backtrace.first(10).join("\n")}"
+        Rails.logger.error(str)
+      rescue => e
+        Rails.logger.error("ERROR INSIDE ERROR with #{banner.name} in placement #{banner.placement.name} : #{e.inspect}")
+      end
     end
 
     def advert_selector_placement_free?(placement)

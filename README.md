@@ -9,6 +9,7 @@ combinations.
 - admin työkalu
   - setup banners
     - test banner in live
+  - exception logger to cache
 
 - check time usages
   - using local times ???
