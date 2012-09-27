@@ -69,6 +69,13 @@
       </div><!--/.well -->
     </div><!--/span-->
 
+    <% unless AdvertSelector::ErrorsCache.errors.blank? %>
+      <div class="alert alert-error span9">
+        <h3>Advertisement causes errors. <%= link_to 'See all', main_url %></h3>
+        <%= simple_format(AdvertSelector::ErrorsCache.errors.last) %>
+      </div>
+    <% end %>
+
 
     <div class="span9">
       <%= yield %>

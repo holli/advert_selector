@@ -101,14 +101,17 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "HelperItem with raising error" do
+  test "HelperItem with raising error and common error displays" do
 
     @coke.helper_items.create!(:position => 0, :name => 'raise_error')
     get '/'
     assert_response :success
     assert !response_includes_banner?(@coke), "should not include banner if helper_item raised error"
 
-    #TODO: HERE SHOULD BE CHECK THAT ITS SHOWED THROUGH RAILS CACHE IN ADMIN PAGE
+    get '/advert_selector/placements'
+    assert_response :success
+    assert_select '.alert-error', :text => /Error with banner Coke in placement Leaderboard/
+
   end
 
 

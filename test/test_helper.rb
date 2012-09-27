@@ -28,6 +28,8 @@ class ActiveSupport::TestCase
     @coke = advert_selector_banners(:coke)
     @pepsi = advert_selector_banners(:pepsi)
     @parade_banner = advert_selector_banners(:parade_banner)
+
+    Timecop.travel( Time.now.at_midnight + 12.hours ) unless [6..20].include?(Time.now.hour)
   end
 
   teardown do
@@ -35,6 +37,7 @@ class ActiveSupport::TestCase
     @coke.reset_cache
     @pepsi.reset_cache
     @parade_banner.reset_cache
+    AdvertSelector::ErrorsCache.clear
   end
 
 end

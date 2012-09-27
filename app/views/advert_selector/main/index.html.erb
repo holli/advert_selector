@@ -1,0 +1,20 @@
+<h1>Advert Selector Main</h1>
+
+<% unless AdvertSelector::ErrorsCache.errors.blank? %>
+  <div class="alert alert-error">
+    <h3>Latest errors - <%= link_to 'Clear errors log.', clear_errors_log_url %></h3>
+    <ul>
+      <% AdvertSelector::ErrorsCache.errors.each do |error| %>
+        <li><%= simple_format(h(error)) %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div class="alert alert-success">
+    No errors currently.
+  </div>
+
+<% end %>
+
+
+<p>Find me in app/views/advert_selector/main/index.html.erb</p>

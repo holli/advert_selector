@@ -9,6 +9,7 @@ module AdvertSelector
     end
 
     test 'find_future && find_current scopes' do
+      #binding.pry
       assert_equal 3, Banner.find_future.size
       assert_equal 3, Banner.find_current.size
 

@@ -45,7 +45,9 @@ module AdvertSelector
     rescue => e
       begin
         # todo: exception catcher here, log to rails cache and display in the main page
-        str = "Error with #{banner.name} in placement #{banner.placement.name}.\n#{Time.now.iso8601} - #{request.url} - #{params.inspect}\n#{e.inspect}\n\n#{e.backtrace.first(10).join("\n")}"
+        str = "Error with banner #{banner.name} in placement #{banner.placement.name}.\n#{Time.now.iso8601} - #{request.url} - #{params.inspect}\n#{e.inspect}\n\n#{e.backtrace.first(10).join("\n")}"
+
+        AdvertSelector::ErrorsCache.add(str)
         Rails.logger.error(str)
       rescue => e
         Rails.logger.error("ERROR INSIDE ERROR with #{banner.name} in placement #{banner.placement.name} : #{e.inspect}")
@@ -82,7 +84,6 @@ module AdvertSelector
       val += 1
       cookies["ad_#{banner.id}"] = {:domain => :all, :expires => time, :value => [val, time.iso8601].join(",") }
     end
-
 
     ##########################################################
 
