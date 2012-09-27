@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
+require "mocha"
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -20,5 +21,18 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
+
+  setup do
+
+    $advert_selector_banners_load_time = nil # force reload of banners in every tests
+    @coke = advert_selector_banners(:coke)
+    @pepsi = advert_selector_banners(:pepsi)
+  end
+
+  teardown do
+    $advert_selector_avoid_cache = false
+    @coke.reset_cache
+    @pepsi.reset_cache
+  end
 
 end

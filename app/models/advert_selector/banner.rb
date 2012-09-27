@@ -9,14 +9,30 @@ module AdvertSelector
     has_many :helper_items, :as => :master, :order => "position", :dependent => :destroy
     accepts_nested_attributes_for :helper_items
 
+    scope :find_future, lambda {
+      order('priority desc').
+          where('end_time > ? OR end_time IS NULL', Time.now).
+          includes(:placement, :helper_items)
+    }
+    scope :find_current, lambda {
+      find_future.
+          where('start_time < ? OR start_time IS NULL', 1.hour.from_now).
+          where('target_view_count IS NULL OR target_view_count > running_view_count')
+    }
+
+    # todo validates
     # validate placement
 
     def name_sym
       @name_sym ||= name.downcase.to_sym
     end
 
+    def has_frequency?
+      !frequency.nil? && frequency > 0
+    end
+
     def show_today_has_viewcounts?(current_view_count = nil)
-      return true if target_view_count.nil?
+      return true if target_view_count.nil? || fast_mode?
 
       current_view_count = running_view_count if current_view_count.nil?
 
@@ -47,8 +63,7 @@ module AdvertSelector
 
     def reload
       super
-      @show_now_today_target = nil
-      @name_sym = nil
+      reset_cache
     end
 
     def cache_key
@@ -57,8 +72,15 @@ module AdvertSelector
 
     def running_view_count
       counter = Rails.cache.read(cache_key).to_i
+      counter = 0 if $advert_selector_avoid_cache
       counter = self[:running_view_count] if counter < self[:running_view_count]
       counter
+    end
+
+    def reset_cache
+      Rails.cache.write(cache_key, nil, :expires_in => 2.weeks)
+      @show_now_today_target = nil
+      @name_sym = nil
     end
 
     def add_one_viewcount

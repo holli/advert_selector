@@ -8,8 +8,6 @@ module AdvertSelector
 
         @advert_selector_banners_selected = []
 
-        #return banners_targeting_age?('adult')
-
         advert_selector_banners.each do |banner|
           advert_selector_banner_try(banner)
         end
@@ -23,27 +21,26 @@ module AdvertSelector
       # todo: exception catcher here, log to rails cache and display in the main page
 
       if banner.show_now_basics? &&
-          advert_selector_placement_free?(banner.placement)
-          advert_selector_placement_once_per_session_ok?(banner.placement)
+          advert_selector_placement_free?(banner.placement) &&
+          advert_selector_placement_once_per_session_ok?(banner.placement) &&
+          advert_selector_banner_frequency_ok?(banner)
 
-        # todo: frequency
         # todo: placement targetings
         # todo: banner_targetings
 
         banner.helper_items.each do |hi|
           if hi.content_for?
-            content_for hi.name_sym, hi.content
+            content_for hi.name_sym, hi.content.html_safe
           else
-            return unless send("advert_selector_#{hi.name}", hi.content)
+            return unless send("advert_selector_#{hi.name}", hi)
           end
         end
 
         advert_selector_placement_once_per_session_shown(banner.placement)
+        advert_selector_banner_frequency_shown(banner)
         banner.add_one_viewcount
 
         @advert_selector_banners_selected.push(banner)
-        #todo: set placement delay_request
-        #todo: set frequency
 
         Rails.logger.debug("Showing banner #{banner.name} in placement #{banner.placement.name}")
       end
@@ -54,7 +51,6 @@ module AdvertSelector
       !placement.conflicting_with?(@advert_selector_banners_selected.collect{|b| b.placement.name_sym})
     end
 
-    # TODO: test these session things
     def advert_selector_placement_once_per_session_ok?(placement)
       !(  placement.only_once_per_session? && session[:advert_selector_session_shown] &&
           session[:advert_selector_session_shown].include?(placement.name) )
@@ -66,11 +62,27 @@ module AdvertSelector
       end
     end
 
+    def advert_selector_banner_frequency_cookie(banner)
+      val, time = cookies["ad_#{banner.id}"].to_s.split(",")
+      [val.to_i, time]
+    end
+    def advert_selector_banner_frequency_ok?(banner)
+      !banner.has_frequency? || advert_selector_banner_frequency_cookie(banner).first < banner.frequency
+    end
+    def advert_selector_banner_frequency_shown(banner)
+      return true unless banner.has_frequency?
+
+      val, time = advert_selector_banner_frequency_cookie(banner)
+      time = time.blank? ? 1.week.from_now : Time.parse(time)
+      val += 1
+      cookies["ad_#{banner.id}"] = {:domain => :all, :expires => time, :value => [val, time.iso8601].join(",") }
+    end
+
 
     ##########################################################
 
-    def advert_selector_request_params_include?(content)
-      key, val = content.split("=")
+    def advert_selector_request_params_include?(placement)
+      key, val = placement.content.to_s.split("=")
       return params[key] == val
     end
 
@@ -84,9 +96,7 @@ module AdvertSelector
         Rails.logger.info("AdvertSelection fetching banners and placements")
         $advert_selector_banners_load_time = Time.now
 
-        $advert_selector_banners = Banner.order('priority desc').includes(:placement)
-        # TODO: Select only current banners
-        # confirmed, online time within one hour, available viewcount
+        $advert_selector_banners = Banner.find_current
       end
 
       $advert_selector_banners

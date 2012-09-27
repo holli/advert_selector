@@ -20,3 +20,4 @@ gem 'simple_form'
 gem 'pry'
 gem 'acts_as_list'
 gem 'timecop'
+gem 'mocha', :require => false

@@ -5,12 +5,44 @@ module AdvertSelector
     fixtures :all
 
     setup do
-      @coke = advert_selector_banners(:coke)
-      @pepsi = advert_selector_banners(:pepsi)
+      $advert_selector_avoid_cache = true
+    end
+
+    test 'find_future && find_current scopes' do
+      assert_equal 2, Banner.find_future.size
+      assert_equal 2, Banner.find_current.size
+
+      Timecop.travel( 1.year.ago ) do
+        assert_equal 2, Banner.find_future.size
+        assert_equal 0, Banner.find_current.size
+      end
+
     end
 
     test "name_sym" do
       assert_equal :coke, @coke.name_sym
+    end
+
+    test "running_viewcount & add_one_viewcount" do
+      $advert_selector_avoid_cache = false
+      @coke.reset_cache
+      @coke[:running_view_count] = 0
+      @coke.save
+
+      assert_equal 0, @coke.running_view_count
+      @coke.add_one_viewcount
+      @coke.add_one_viewcount
+      assert_equal 2, @coke.running_view_count
+
+      coke_second = Banner.find(@coke)
+      assert_equal 0, coke_second[:running_view_count], "should not save value to db after every reload"
+      assert_equal 2, coke_second.running_view_count, "should fetch value from rails cache in every view"
+
+      Rails.cache.write(@coke.cache_key, 1000, :expires_in => 2.weeks)
+      @coke.add_one_viewcount
+
+      coke_third = Banner.find(@coke)
+      assert_equal 1001, coke_third[:running_view_count], "should have saved value to db after so many views"
     end
 
     test "view_count_per_day" do
@@ -23,7 +55,12 @@ module AdvertSelector
 
       @coke.reload
       @coke.running_view_count = 13
-      assert !@coke.show_today_has_viewcounts?
+      assert !@coke.show_today_has_viewcounts?, "daily limit should be full"
+
+      @coke.fast_mode = true
+      assert @coke.show_today_has_viewcounts?, "fast_mode true, always true"
+      @coke.fast_mode = false
+
 
       Timecop.travel( 5.days.from_now.at_midnight + 12.hours ) do
         @coke.reload
