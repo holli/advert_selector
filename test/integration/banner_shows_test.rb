@@ -139,5 +139,17 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
     assert response_includes_banner?(@coke)
   end
 
+  test "banner preview url forces banner and displays information" do
+    get '/'
+    assert !response_includes_banner?(@parade_banner)
+    assert_select '#advert_selector_info', :count => 0
+
+    get '/?advert_selector_force=parade_banner'
+    assert_response :success
+    assert response_includes_banner?(@parade_banner)
+
+    assert_select '#advert_selector_info', :count => 1
+  end
+
 end
 

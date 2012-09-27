@@ -8,15 +8,31 @@ module AdvertSelector
 
         @advert_selector_banners_selected = []
 
+        if params[:advert_selector_force] && banner = Banner.find_by_id(params[:advert_selector_force])
+          advert_selector_banner_force(banner)
+        end
+
         advert_selector_banners.each do |banner|
           advert_selector_banner_try(banner)
         end
 
         Rails.logger.debug("AdvertSelection finished")
-        #"AdvertSelector.initialize finished"
       end
       ""
     end
+
+    def advert_selector_force_test_infos
+      if @advert_selector_force_banner_infos
+        content_tag :div, :id => "advert_selector_info", :class => 'alert alert-info', :style => "position: fixed; bottom: 5px;" do
+          content_tag(:strong) { "AdvertSelectorInfos for HelperItems:</br>".html_safe } +
+          content_tag(:ul) {
+            @advert_selector_force_banner_infos.to_a.collect{|k, v| content_tag(:li){"#{k} : #{v}".html_safe} }.join("\n").html_safe
+          }
+        end
+      end
+
+    end
+
 
     def advert_selector_banner_try(banner)
 
@@ -44,7 +60,6 @@ module AdvertSelector
 
     rescue => e
       begin
-        # todo: exception catcher here, log to rails cache and display in the main page
         str = "Error with banner #{banner.name} in placement #{banner.placement.name}.\n#{Time.now.iso8601} - #{request.url} - #{params.inspect}\n#{e.inspect}\n\n#{e.backtrace.first(10).join("\n")}"
 
         AdvertSelector::ErrorsCache.add(str)
@@ -52,6 +67,27 @@ module AdvertSelector
       rescue => e
         Rails.logger.error("ERROR INSIDE ERROR with #{banner.name} in placement #{banner.placement.name} : #{e.inspect}")
       end
+    end
+
+    def advert_selector_banner_force(banner)
+      @advert_selector_force_banner_infos  = []
+      @advert_selector_force_banner_infos.push [:show_now_basics, banner.show_now_basics?]
+      @advert_selector_force_banner_infos.push [:placement_free, advert_selector_placement_free?(banner.placement)]
+      @advert_selector_force_banner_infos.push [:placement_once_per_session, advert_selector_placement_once_per_session_ok?(banner.placement)]
+      @advert_selector_force_banner_infos.push [:frequency, advert_selector_banner_frequency_ok?(banner)]
+      banner.all_helper_items.each do |hi|
+        @advert_selector_force_banner_infos.push [hi.name_sym,
+                                                           if hi.content_for?
+                                                             content_for hi.name_sym, hi.content.html_safe
+                                                             content_for(hi.name_sym).first(20)
+                                                           else
+                                                             send("advert_selector_#{hi.name}", hi)
+                                                           end]
+      end
+
+      @advert_selector_banners_selected.push(banner)
+      Rails.logger.info("ForceShowing banner #{banner.name} in placement #{banner.placement.name}")
+
     end
 
     def advert_selector_placement_free?(placement)
