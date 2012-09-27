@@ -25,4 +25,14 @@ pepsi:
   confirmed: true
   priority: 100
 
+parade_banner:
+  placement: parade
+  name: parade_banner
+  start_time: <%= Time.now.at_beginning_of_day.to_s(:db) %>
+  end_time: <%= 10.days.from_now.at_beginning_of_day.to_s(:db) %>
+  target_view_count: 1000
+  frequency: 1
+  fast_mode: true
+  confirmed: false
+  priority: 1000
 

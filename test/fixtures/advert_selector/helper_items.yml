@@ -18,3 +18,16 @@ pepsi_content:
   content_for: true
   content: "<img src='pepsi_banner'/>"
 
+leaderboard_testing:
+  master: leaderboard (AdvertSelector::Placement)
+  position: 1
+  name: leaderboard_testing
+
+parade_content:
+  master: parade_banner (AdvertSelector::Banner)
+  position: 1
+  name: banner_parade
+  content_for: true
+  content: "<img src='banner_parade'/>"
+
+

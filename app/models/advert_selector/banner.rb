@@ -81,6 +81,7 @@ module AdvertSelector
       Rails.cache.write(cache_key, nil, :expires_in => 2.weeks)
       @show_now_today_target = nil
       @name_sym = nil
+      @all_helper_items = nil
     end
 
     def add_one_viewcount
@@ -95,6 +96,9 @@ module AdvertSelector
       end
     end
 
+    def all_helper_items
+      @all_helper_items ||= placement.helper_items + helper_items
+    end
 
     after_save :after_save_destroy_empty_helpers
     def after_save_destroy_empty_helpers

@@ -27,12 +27,14 @@ class ActiveSupport::TestCase
     $advert_selector_banners_load_time = nil # force reload of banners in every tests
     @coke = advert_selector_banners(:coke)
     @pepsi = advert_selector_banners(:pepsi)
+    @parade_banner = advert_selector_banners(:parade_banner)
   end
 
   teardown do
     $advert_selector_avoid_cache = false
     @coke.reset_cache
     @pepsi.reset_cache
+    @parade_banner.reset_cache
   end
 
 end

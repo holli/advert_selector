@@ -9,11 +9,11 @@ module AdvertSelector
     end
 
     test 'find_future && find_current scopes' do
-      assert_equal 2, Banner.find_future.size
-      assert_equal 2, Banner.find_current.size
+      assert_equal 3, Banner.find_future.size
+      assert_equal 3, Banner.find_current.size
 
       Timecop.travel( 1.year.ago ) do
-        assert_equal 2, Banner.find_future.size
+        assert_equal 3, Banner.find_future.size
         assert_equal 0, Banner.find_current.size
       end
 

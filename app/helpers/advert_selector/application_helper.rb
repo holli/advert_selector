@@ -12,23 +12,20 @@ module AdvertSelector
           advert_selector_banner_try(banner)
         end
 
-        "AdvertSelector.initialize finished"
+        Rails.logger.debug("AdvertSelection finished")
+        #"AdvertSelector.initialize finished"
       end
+      ""
     end
 
     def advert_selector_banner_try(banner)
-
-      # todo: exception catcher here, log to rails cache and display in the main page
 
       if banner.show_now_basics? &&
           advert_selector_placement_free?(banner.placement) &&
           advert_selector_placement_once_per_session_ok?(banner.placement) &&
           advert_selector_banner_frequency_ok?(banner)
 
-        # todo: placement targetings
-        # todo: banner_targetings
-
-        banner.helper_items.each do |hi|
+        banner.all_helper_items.each do |hi|
           if hi.content_for?
             content_for hi.name_sym, hi.content.html_safe
           else
@@ -42,9 +39,11 @@ module AdvertSelector
 
         @advert_selector_banners_selected.push(banner)
 
-        Rails.logger.debug("Showing banner #{banner.name} in placement #{banner.placement.name}")
+        Rails.logger.info("Showing banner #{banner.name} in placement #{banner.placement.name}")
       end
 
+    rescue => e
+      # todo: exception catcher here, log to rails cache and display in the main page
     end
 
     def advert_selector_placement_free?(placement)

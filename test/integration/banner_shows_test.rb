@@ -12,7 +12,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
   end
 
   def response_includes_banner?(banner)
-    @response.body.include?(banner.helper_items.last.content)
+    @response.body.include?(banner.helper_items.where(:content_for => true).last.content)
   end
   def assert_response_includes_banner(banner)
     assert response_includes_banner?(banner), "should have default banner content in response"
@@ -85,6 +85,56 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "HelperItem runned" do
+    get '/'
+    assert_response :success
+    assert_response_includes_banner(@coke)
+    assert @response.body.include?("advert_selector_leaderboard_testing_content"), "should have run leaderboard testing content"
+
+    $advert_selector_banners_load_time = nil
+
+    @coke.helper_items.create!(:position => 0, :name => 'always_false')
+    get '/'
+    assert_response :success
+    assert @response.body.include?("advert_selector_leaderboard_testing_content"), "should have run leaderboard testing content before banner test"
+    assert !response_includes_banner?(@coke), "should not include banner if helper_item returned false"
+
+  end
+
+  test "HelperItem with raising error" do
+
+    @coke.helper_items.create!(:position => 0, :name => 'raise_error')
+    get '/'
+    assert_response :success
+    assert !response_includes_banner?(@coke), "should not include banner if helper_item raised error"
+
+    #TODO: HERE SHOULD BE CHECK THAT ITS SHOWED THROUGH RAILS CACHE IN ADMIN PAGE
+  end
+
+
+  test "complex setup conflicting banners placements" do
+    @parade_banner.update_attributes!(:confirmed => true, :frequency => 1)
+    get '/'
+    assert_response :success
+    assert response_includes_banner?(@parade_banner)
+    assert !response_includes_banner?(@coke)
+
+    get '/'
+    assert_response :success
+    assert !response_includes_banner?(@parade_banner)
+    assert response_includes_banner?(@coke)
+  end
+
+  test "complex setup multiple banners placements" do
+    @parade_banner.update_attributes!(:confirmed => true, :frequency => 1)
+    @parade_banner.placement.conflicting_placements_array = ""
+    @parade_banner.placement.save!
+
+    get '/'
+    assert_response :success
+    assert response_includes_banner?(@parade_banner)
+    assert response_includes_banner?(@coke)
+  end
 
 end
 
