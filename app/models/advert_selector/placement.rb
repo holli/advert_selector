@@ -9,11 +9,11 @@ module AdvertSelector
     scope :by_name, lambda {|name| where("LOWER(name) = ?", name.to_s.downcase)}
 
     def name_sym
-      @name_sym ||= name.to_s.downcase.to_sym
+      @name_sym ||= name.to_s.downcase.to_sym unless name.blank?
     end
 
 
-    def conflicting_with(placement_syms)
+    def conflicting_with?(placement_syms)
       placement_syms = [placement_syms.name_sym] if placement_syms.is_a?(Placement)
       placement_syms = placement_syms.collect{|plac| plac.name_sym} if placement_syms.first.is_a?(Placement)
 

@@ -3,7 +3,6 @@
 <head>
   <title>AdvertSelector</title>
 
-
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -34,13 +33,11 @@
         </p>
         <ul class="nav">
           <% [['Placements', placements_url],
-              ['Banners', banners_url]
+              ['Banners', banners_url],
+              ['About this gem', 'https://github.com/holli/advert_selector']
              ].each do |str, url| %>
             <li><%= link_to str, url %></li>
           <% end %>
-          <li class="active"></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -53,13 +50,15 @@
     <div class="span3">
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
-          <li class="nav-header">Placements</li>
+          <li class="nav-header">
+            <%= link_to 'Placements', placements_url %>
+          </li>
           <% AdvertSelector::Placement.all.each do |placement| %>
             <li><%= link_to placement.name, edit_placement_url(placement) %></li>
           <% end %>
           <li><%= link_to 'Create New', new_placement_url %></li>
 
-          <li class="nav-header">Banners</li>
+          <li class="nav-header"><%= link_to 'Banners', banners_url %></li>
           <% AdvertSelector::Banner.order('priority desc').limit(10).each do |banner| %>
             <li><%= link_to "#{banner.name} -> #{banner.placement.name}", edit_banner_url(banner) %></li>
           <% end %>

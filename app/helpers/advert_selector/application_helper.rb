@@ -18,15 +18,9 @@ module AdvertSelector
       end
     end
 
-    #def content_for_placement(name)
-    #  #Placement.where(:name => name).first.development_code.html_safe
-    #
-    #  banner = @advert_selector_banners_selected.find{|b| b.placement.name_sym == name.to_sym}
-    #
-    #  banner.comment.html_safe unless banner.nil?
-    #end
-
     def advert_selector_banner_try(banner)
+
+      # todo: exception catcher here, log to rails cache and display in the main page
 
       if banner.show_now_basics? &&
           advert_selector_placement_free?(banner.placement)
@@ -62,11 +56,11 @@ module AdvertSelector
 
     # TODO: test these session things
     def advert_selector_placement_once_per_session_ok?(placement)
-      !(  placement.once_per_session? && session[:advert_selector_session_shown] &&
+      !(  placement.only_once_per_session? && session[:advert_selector_session_shown] &&
           session[:advert_selector_session_shown].include?(placement.name) )
     end
     def advert_selector_placement_once_per_session_shown(placement)
-      if placement.once_per_session?
+      if placement.only_once_per_session?
         session[:advert_selector_session_shown] = [] if session[:advert_selector_session_shown].nil?
         session[:advert_selector_session_shown].push(placement.name)
       end

@@ -24,14 +24,14 @@ module AdvertSelector
     end
 
     test "conflicting_with" do
-      assert @parade.conflicting_with(@parade), "should conflict with itself"
+      assert @parade.conflicting_with?(@parade), "should conflict with itself"
 
       assert @parade.conflicting_placements_array.include?("leaderboard"), "wrong setup"
-      assert @parade.conflicting_with(@leaderboard)
+      assert @parade.conflicting_with?(@leaderboard)
 
       dummy = Placement.new(:name => 'test1')
-      assert !@parade.conflicting_with([dummy])
-      assert @parade.conflicting_with([dummy, @leaderboard])
+      assert !@parade.conflicting_with?([dummy])
+      assert @parade.conflicting_with?([dummy, @leaderboard])
     end
 
     test "conflicting_placements_array=" do
