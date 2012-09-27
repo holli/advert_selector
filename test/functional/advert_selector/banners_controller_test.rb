@@ -1,9 +1,12 @@
-require 'test_helper'
+require 'test/test_helper'
 
 module AdvertSelector
   class BannersControllerTest < ActionController::TestCase
     setup do
-      @banner = banners(:one)
+
+      @routes = AdvertSelector::Engine.routes # This would be same as calling get :index, :use_route => :advert_selector
+
+      @banner = advert_selector_banners(:pepsi)
     end
   
     test "should get index" do
@@ -19,7 +22,7 @@ module AdvertSelector
   
     test "should create banner" do
       assert_difference('Banner.count') do
-        post :create, :banner => { :comment => @banner.comment, :confirmed => @banner.confirmed, :delay_requests => @banner.delay_requests, :end_time => @banner.end_time, :frequency => @banner.frequency, :name => @banner.name, :placement_id => @banner.placement_id, :start_time => @banner.start_time, :target_view_count => @banner.target_view_count }
+        post :create, :banner => { :comment => @banner.comment, :end_time => @banner.end_time, :frequency => @banner.frequency, :name => @banner.name, :placement_id => @banner.placement_id, :start_time => @banner.start_time, :target_view_count => @banner.target_view_count }
       end
   
       assert_redirected_to banner_path(assigns(:banner))
@@ -27,7 +30,7 @@ module AdvertSelector
   
     test "should show banner" do
       get :show, :id => @banner
-      assert_response :success
+      assert_response :redirect
     end
   
     test "should get edit" do
@@ -36,7 +39,7 @@ module AdvertSelector
     end
   
     test "should update banner" do
-      put :update, :id => @banner, :banner => { :comment => @banner.comment, :confirmed => @banner.confirmed, :delay_requests => @banner.delay_requests, :end_time => @banner.end_time, :frequency => @banner.frequency, :name => @banner.name, :placement_id => @banner.placement_id, :start_time => @banner.start_time, :target_view_count => @banner.target_view_count }
+      put :update, :id => @banner, :banner => { :comment => @banner.comment }
       assert_redirected_to banner_path(assigns(:banner))
     end
   

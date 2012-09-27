@@ -2,20 +2,50 @@
 
   <%= f.error_notification %>
 
-  <%= f.input :name %>
-  <%#= f.input :name, :hint => 'Same name is used in rails views, careful when changing.' %>
-  <%= f.input :request_delay %>
-  <%= f.input :development_code, :input_html => {:rows => 5} %>
+  <div class="row">
+    <div class="span5">
+      <%= f.input :name %>
 
+      <%= f.input :only_once_per_session %>
 
-  <% if false %>
-      <div class="form-inputs">
-        <%= f.input :conflicting_placements_array %>
+      <%= f.input :conflicting_placements_array, :input_html => {:rows => 5} %>
+
+      <div class="well" style="margin-left: 40px; font-size: 12px;">
+        <strong>Conflicting links:</strong>
+        <ul>
+        <% @placement.conflicting_placements.each do |name| %>
+          <li>
+            <% if place = AdvertSelector::Placement.by_name(name).first %>
+              <%= link_to place.name, place %>
+            <% else %>
+              <strong><%= name %> - NOT FOUND</strong>
+            <% end %>
+          </li>
+        <% end %>
+        </ul>
       </div>
-  <% end %>
+
+    </div>
+
+    <div class="span4">
+      <% @placement.helper_items.build
+         @placement.helper_items.build if @placement.helper_items.size < 2
+      %>
+      <%= f.fields_for :helper_items do |f_hi| %>
+        <fieldset style="margin-bottom: 20px; border-bottom: 1px solid lightgray;">
+        <%= f_hi.input :name, :label => 'HelperItem Name' %>
+        <%= f_hi.input :content_for, :disabled => true %>
+        <%= f_hi.input :position %>
+        <%= f_hi.input :content, :input_html => {:rows => (f_hi.object.content_for? ? 5 : 1) } %>
+        </fieldset>
+      <% end %>
+    </div>
+
+  </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 
 <% end %>
+

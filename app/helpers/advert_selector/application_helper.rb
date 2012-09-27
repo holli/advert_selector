@@ -30,9 +30,10 @@ module AdvertSelector
 
       if banner.show_now_basics? &&
           advert_selector_placement_free?(banner.placement)
-        # todo: no conflicting placements from
-        # todo: placement delay_requests
+          advert_selector_placement_once_per_session_ok?(banner.placement)
+
         # todo: frequency
+        # todo: placement targetings
         # todo: banner_targetings
 
         banner.helper_items.each do |hi|
@@ -43,6 +44,7 @@ module AdvertSelector
           end
         end
 
+        advert_selector_placement_once_per_session_shown(banner.placement)
         banner.add_one_viewcount
 
         @advert_selector_banners_selected.push(banner)
@@ -55,9 +57,21 @@ module AdvertSelector
     end
 
     def advert_selector_placement_free?(placement)
-      # todo: set conflicting banners handling (e.g. parade vs header_banner)
-      !@advert_selector_banners_selected.any?{|banner| banner.placement == placement}
+      !placement.conflicting_with?(@advert_selector_banners_selected.collect{|b| b.placement.name_sym})
     end
+
+    # TODO: test these session things
+    def advert_selector_placement_once_per_session_ok?(placement)
+      !(  placement.once_per_session? && session[:advert_selector_session_shown] &&
+          session[:advert_selector_session_shown].include?(placement.name) )
+    end
+    def advert_selector_placement_once_per_session_shown(placement)
+      if placement.once_per_session?
+        session[:advert_selector_session_shown] = [] if session[:advert_selector_session_shown].nil?
+        session[:advert_selector_session_shown].push(placement.name)
+      end
+    end
+
 
     ##########################################################
 

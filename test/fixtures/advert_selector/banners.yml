@@ -1,23 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  start_time: 2012-09-25 15:28:58
-  end_time: 2012-09-25 15:28:58
-  target_view_count: 1
-  frequency: 1
-  delay_requests: 1
-  comment: MyText
-  confirmed: false
-  placement_id: 1
+coke:
+  placement: leaderboard
+  name: Coke
+  start_time: <%= Time.now.at_beginning_of_day.to_s(:db) %>
+  end_time: <%= 10.days.from_now.at_beginning_of_day.to_s(:db) %>
+  target_view_count: 1000
+  running_view_count: 100
+  frequency: nil
+  fast_mode: false
+  comment: "Coke banner"
+  confirmed: true
+  priority: 50
 
-two:
-  name: MyString
-  start_time: 2012-09-25 15:28:58
-  end_time: 2012-09-25 15:28:58
-  target_view_count: 1
-  frequency: 1
-  delay_requests: 1
-  comment: MyText
-  confirmed: false
-  placement_id: 1
+pepsi:
+  placement: leaderboard
+  name: Pepsi
+  start_time: <%= Time.now.at_beginning_of_day.to_s(:db) %>
+  end_time: <%= 10.days.from_now.at_beginning_of_day.to_s(:db) %>
+  target_view_count: 1000
+  frequency: nil
+  comment: "Pepsi banner"
+  fast_mode: true
+  confirmed: true
+  priority: 100

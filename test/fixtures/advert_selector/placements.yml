@@ -1,11 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
-  development_code: MyText
-  conflicting_placements_array: MyText
+parade:
+  name: Parade
+  conflicting_placements_array: leaderboard,video
 
-two:
-  name: MyString
-  development_code: MyText
-  conflicting_placements_array: MyText
+leaderboard:
+  name: Leaderboard
+  conflicting_placements_array: parade
+
+video:
+  name: Video
+  only_once_per_session: true
+  conflicting_placements_array: parade
+
+
+

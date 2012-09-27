@@ -67,10 +67,11 @@ in views/layouts/your_view
   - conflicting_placements_array (:serialize)
   - has_many :items
 
-- Item
+- HelperItem
   - belongs_to :attachable, :polymorphic => true
-  - content_for_name
-  - helper_name 'advert_selector_xxx'
+  - name 'advert_selector_xxx'
+  - position
+  - content_for
   - content
 
 

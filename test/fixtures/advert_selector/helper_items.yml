@@ -1,15 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+coke_content:
+  master: coke (Banner)
+  name: banner_leaderboard
+  content: "<img src='coke_banner'/>"
+  position: 1
 
-one:
-  master_id: 1
-  master_type: MyString
-  name: MyString
+pepsi_only_param_true:
+  master: pepsi (Banner)
+  name: request_params_include?
   content_for: false
-  content: MyText
+  content: pepsi=true
 
-two:
-  master_id: 1
-  master_type: MyString
-  name: MyString
-  content_for: false
-  content: MyText
+pepsi_content:
+  master: pepsi (Banner)
+  position: 2
+  name: banner_leaderboard
+  content_for: true
+  content: "<img src='pepsi_banner'/>"
+

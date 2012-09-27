@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20120926132649) do
 
   create_table "advert_selector_placements", :force => true do |t|
     t.string   "name",                         :null => false
-    t.integer  "request_delay"
+    t.boolean  "only_once_per_session"
     t.text     "conflicting_placements_array"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
