@@ -1,7 +1,7 @@
 module AdvertSelector
   module ApplicationHelper
 
-    def advert_selector_initialize
+    def advert_selector_initialize(available_placements = :all)
       Rails.logger.tagged('AdvertSelector') do
 
         Rails.logger.debug("AdvertSelection initialized")
@@ -13,7 +13,9 @@ module AdvertSelector
         end
 
         advert_selector_banners.each do |banner|
-          advert_selector_banner_try(banner)
+          if available_placements == :all || available_placements.include?(banner.placement.name_sym)
+            advert_selector_banner_try(banner)
+          end
         end
 
         Rails.logger.debug("AdvertSelection finished")
