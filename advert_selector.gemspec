@@ -7,18 +7,18 @@ require "advert_selector/version"
 Gem::Specification.new do |s|
   s.name        = "advert_selector"
   s.version     = AdvertSelector::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of AdvertSelector."
-  s.description = "TODO: Description of AdvertSelector."
+  s.authors     = ["Olli Huotari"]
+  s.email       = ["olli.huotari@iki.fi"]
+  s.homepage    = "https://github.com/holli/advert_selector/"
+  s.summary     = "Rails adserver tool for selecting a smaller subset of banners from all possible banners with differing banner placement combinations."
+  s.description = "Rails adserver tool for selecting a smaller subset of banners from all possible banners with differing banner placement combinations. Gem includes admin tools for handling banners in live environment. Includes basic targeting, viewcount, frequency etc setups."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.8"
   s.add_dependency "jquery-rails"
-  s.add_dependency 'simple_form'
+  s.add_dependency "simple_form"
 
   #s.add_development_dependency "jquery-rails"
 

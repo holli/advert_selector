@@ -11,7 +11,9 @@
 
 default_url = "http://localhost.inv:3000/?"
 %>
-Test banner in url : <input type="text" name="test_url" value="<%= default_url + "advert_selector_force=#{@banner.id}" %>">
+Test banner in url :
+
+<input type="text" name="test_url" style="width: 500px;" value="<%= AdvertSelector.default_banner_test_url + "advert_selector_force=#{@banner.id}" %>">
 
 <hr/>
 

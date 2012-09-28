@@ -5,7 +5,7 @@ module AdvertSelector
     fixtures :all
 
     setup do
-
+      AdvertSelector.admin_access_class = AdvertSelector::AdminAccessClassAlwaysTrue
       @routes = AdvertSelector::Engine.routes # This would be same as calling get :index, :use_route => :advert_selector
 
       @placement = advert_selector_placements(:leaderboard)

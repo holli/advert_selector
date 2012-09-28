@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../test_helper'
 module AdvertSelector
   class BannersControllerTest < ActionController::TestCase
     setup do
-
+      AdvertSelector.admin_access_class = AdvertSelector::AdminAccessClassAlwaysTrue
       @routes = AdvertSelector::Engine.routes # This would be same as calling get :index, :use_route => :advert_selector
 
       @banner = advert_selector_banners(:pepsi)

@@ -1,18 +1,3 @@
-
-
-## TODO
-
-- admin login checkit
-  - testaa että ei pääse defaulttisetupilla tänne, defaulttina vain localhostista
-- laita autotestaus päälle
-
-- duplicointi bannereille
-  - kopioi nykyiset tiedot valmiiksi uuteen formiin muokattavaksi
-
-- tee gemspec valmiiksi
-- linkkei
-  - http://stackoverflow.com/questions/1109145/ad-banner-management-rotation-for-ruby-on-rails
-
 # AdvertSelector
 
 Rails adserver tool for selecting a smaller subset of banners from all
@@ -73,10 +58,22 @@ test the admin tool in url
 
 
 ```
-/config/initializers/advert_selector.rb
+set extra_configuration in /config/initializers/advert_selector.rb
 
-TODO: admin_filtering - set default to localhost only
-TODO: default_test_url
+
+AdvertSelector.default_banner_test_url = "yourdomain.com/?"
+
+class AdminAccessToGemTools
+  def self.admin_access(controller)
+    if !controller.session[:admin_logged].blank? || Rails.env.development?
+      return true
+    else
+      return false
+    end
+  end
+end
+ActionSmser.admin_access_class = AdminAccessToGemTools
+
 
 ```
 
