@@ -18,7 +18,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
     assert response_includes_banner?(banner), "should have default banner content in response"
   end
 
-  test "normal request and banner loading" do
+  test "normal request and banner loading asdf" do
     AdvertSelector::Banner.expects(:find_current).twice.returns(AdvertSelector::Banner.find_future)
 
     get '/'
@@ -89,14 +89,12 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
     get '/'
     assert_response :success
     assert_response_includes_banner(@coke)
-    assert @response.body.include?("advert_selector_leaderboard_testing_content"), "should have run leaderboard testing content"
 
     $advert_selector_banners_load_time = nil
 
     @coke.helper_items.create!(:position => 0, :name => 'always_false')
     get '/'
     assert_response :success
-    assert @response.body.include?("advert_selector_leaderboard_testing_content"), "should have run leaderboard testing content before banner test"
     assert !response_includes_banner?(@coke), "should not include banner if helper_item returned false"
 
   end

@@ -2,10 +2,12 @@ module AdvertSelector
   class HelperItem < ActiveRecord::Base
     attr_accessible :master_id, :master_type, :name, :position, :content_for, :content
 
-    belongs_to :master, :polymorphic => true
+    #belongs_to :master, :polymorphic => true
+    #acts_as_list :scope => [:master_id, :master_type]
 
-    #acts_as_list :scope => 'master_id=#{master_id} and master_type=#{master_type}'
-    acts_as_list :scope => [:master_id, :master_type]
+    belongs_to :banner, :class_name => 'AdvertSelector::Banner'
+    acts_as_list :scope => :banner_id
+
 
     def name_sym
       @name_sym ||= name.downcase.to_sym

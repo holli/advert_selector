@@ -41,7 +41,7 @@ module AdvertSelector
           advert_selector_placement_once_per_session_ok?(banner.placement) &&
           advert_selector_banner_frequency_ok?(banner)
 
-        banner.all_helper_items.each do |hi|
+        banner.helper_items.each do |hi|
           if hi.content_for?
             content_for hi.name_sym, hi.content.html_safe
           else
@@ -75,7 +75,7 @@ module AdvertSelector
       @advert_selector_force_banner_infos.push [:placement_free, advert_selector_placement_free?(banner.placement)]
       @advert_selector_force_banner_infos.push [:placement_once_per_session, advert_selector_placement_once_per_session_ok?(banner.placement)]
       @advert_selector_force_banner_infos.push [:frequency, advert_selector_banner_frequency_ok?(banner)]
-      banner.all_helper_items.each do |hi|
+      banner.helper_items.each do |hi|
         @advert_selector_force_banner_infos.push [hi.name_sym,
                                                            if hi.content_for?
                                                              content_for hi.name_sym, hi.content.html_safe

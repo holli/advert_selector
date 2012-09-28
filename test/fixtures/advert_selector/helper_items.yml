@@ -1,30 +1,30 @@
 coke_content:
-  master: coke (AdvertSelector::Banner)
+  banner: coke
   name: banner_leaderboard
   content_for: true
   content: "<img src='coke_banner'/>"
   position: 1
 
 pepsi_only_param_true:
-  master: pepsi (AdvertSelector::Banner)
+  banner: pepsi
   name: request_params_include?
   content_for: false
   content: pepsi=true
 
 pepsi_content:
-  master: pepsi (AdvertSelector::Banner)
+  banner: pepsi
   position: 2
   name: banner_leaderboard
   content_for: true
   content: "<img src='pepsi_banner'/>"
 
-leaderboard_testing:
-  master: leaderboard (AdvertSelector::Placement)
-  position: 1
-  name: leaderboard_testing
+#leaderboard_testing:
+#  master: leaderboard (AdvertSelector::Placement)
+#  position: 1
+#  name: leaderboard_testing
 
 parade_content:
-  master: parade_banner (AdvertSelector::Banner)
+  banner: parade_banner
   position: 1
   name: banner_parade
   content_for: true

@@ -1,10 +1,8 @@
 module AdvertSelector
   class Placement < ActiveRecord::Base
-    attr_accessible :conflicting_placements_array, :name, :request_delay, :helper_items_attributes
+    attr_accessible :conflicting_placements_array, :name, :request_delay, :only_once_per_session
 
     has_many :banners, :inverse_of => :placement
-    has_many :helper_items, :as => :master, :order => "position", :dependent => :destroy
-    accepts_nested_attributes_for :helper_items
 
     scope :by_name, lambda {|name| where("LOWER(name) = ?", name.to_s.downcase)}
 
@@ -33,23 +31,6 @@ module AdvertSelector
       arr = Placement.conflicting_placements( string )
       arr.delete(name_sym)
       self[:conflicting_placements_array] = arr.join(",")
-    end
-
-    before_save :before_save_helper_items
-    def before_save_helper_items
-
-    end
-
-    after_save :after_save_helper_items
-    def after_save_helper_items
-      helper_items.each do |hi|
-        if hi.blank?
-          hi.destroy
-        else
-          hi.content_for = false
-          hi.save!
-        end
-      end
     end
 
     after_save :after_save_update_conflicting_placements_info

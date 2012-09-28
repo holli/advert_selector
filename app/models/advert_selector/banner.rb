@@ -6,13 +6,13 @@ module AdvertSelector
 
     belongs_to :placement, :inverse_of => :banners
 
-    has_many :helper_items, :as => :master, :order => "position", :dependent => :destroy
+    has_many :helper_items, :order => "position", :dependent => :destroy
     accepts_nested_attributes_for :helper_items
 
     scope :find_future, lambda {
       order('priority desc').
           where('end_time > ? OR end_time IS NULL', Time.now).
-          includes({:placement => :helper_items}, :helper_items)
+          includes(:placement, :helper_items)
     }
     scope :find_current, lambda {
       find_future.
@@ -81,7 +81,6 @@ module AdvertSelector
       Rails.cache.write(cache_key, nil, :expires_in => 2.weeks)
       @show_now_today_target = nil
       @name_sym = nil
-      @all_helper_items = nil
     end
 
     def add_one_viewcount
@@ -94,10 +93,6 @@ module AdvertSelector
         since_update = running_view_count_change.last - running_view_count_change.first
         self.save if since_update >= 500 || counter >= target_view_count
       end
-    end
-
-    def all_helper_items
-      @all_helper_items ||= placement.helper_items + helper_items
     end
 
     after_save :after_save_destroy_empty_helpers

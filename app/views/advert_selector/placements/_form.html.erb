@@ -28,17 +28,6 @@
     </div>
 
     <div class="span4">
-      <% @placement.helper_items.build
-         @placement.helper_items.build if @placement.helper_items.size < 2
-      %>
-      <%= f.fields_for :helper_items do |f_hi| %>
-        <fieldset style="margin-bottom: 20px; border-bottom: 1px solid lightgray;">
-        <%= f_hi.input :name, :label => 'HelperItem Name' %>
-        <%= f_hi.input :content_for, :disabled => true %>
-        <%= f_hi.input :position %>
-        <%= f_hi.input :content, :input_html => {:rows => (f_hi.object.content_for? ? 5 : 1) } %>
-        </fieldset>
-      <% end %>
     </div>
 
   </div>

@@ -46,22 +46,5 @@ module AdvertSelector
       assert_blank new_leaderboard.conflicting_placements_array
     end
 
-    test "HelperItems" do
-      helper_items_count = HelperItem.count
-      @parade.helper_items.build
-      @parade.helper_items.build(:name => 'content_for_invalid', :content_for => true, :position => 10)
-      @parade.helper_items.build(:name => 'some_limit_helper_here', :position => 1)
-      assert @parade.save
-
-      placement = Placement.find(@parade)
-
-      assert_equal 2, placement.helper_items.size
-      assert_equal helper_items_count+2, HelperItem.count
-
-      assert 'some_limit_helper_here', placement.helper_items.first.name
-
-      assert 'content_for_invalid', placement.helper_items.last.name
-      assert !placement.helper_items.last.content_for
-    end
   end
 end
