@@ -24,7 +24,7 @@ module AdvertSelector
     def advert_selector_force_test_infos
       if @advert_selector_force_banner_infos
         content_tag :div, :id => "advert_selector_info", :class => 'alert alert-info', :style => "position: fixed; bottom: 5px;" do
-          content_tag(:strong) { "AdvertSelectorInfos for HelperItems:</br>".html_safe } +
+          content_tag(:strong) { "AdvertSelectorInfos for HelperItems:<br/>".html_safe } +
           content_tag(:ul) {
             @advert_selector_force_banner_infos.to_a.collect{|k, v| content_tag(:li){"#{k} : #{v}".html_safe} }.join("\n").html_safe
           }

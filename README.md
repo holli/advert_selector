@@ -5,18 +5,13 @@
 - admin login checkit
   - testaa että ei pääse defaulttisetupilla tänne, defaulttina vain localhostista
 - laita autotestaus päälle
-- banner -model
-  - db:hen tallentuu vika add_one_viewcount kutsu
-    - kato että updatee sqllää ekä modelia
-  - in_serve boolean
-    - updatee aina ennen before_save:ea tätä
-- helper-item
-  - laita normaali inheritance, vain advert_selector_banner_id, advert_selector_placement_id
-  - indexoi foreign_id:t
+
 - initializeri ottamaan optiona sopivat baneripaikat
   - ei mainsivuilla sideboxia tms
+
 - duplicointi bannereille
   - kopioi nykyiset tiedot valmiiksi uuteen formiin muokattavaksi
+
 - tee gemspec valmiiksi
 - linkkei
   - http://stackoverflow.com/questions/1109145/ad-banner-management-rotation-for-ruby-on-rails

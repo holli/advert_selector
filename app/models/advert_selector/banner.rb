@@ -12,7 +12,7 @@ module AdvertSelector
     scope :find_future, lambda {
       order('priority desc').
           where('end_time > ? OR end_time IS NULL', Time.now).
-          includes(:placement, :helper_items)
+          includes({:placement => :helper_items}, :helper_items)
     }
     scope :find_current, lambda {
       find_future.
@@ -92,7 +92,7 @@ module AdvertSelector
         self[:running_view_count] = counter
 
         since_update = running_view_count_change.last - running_view_count_change.first
-        self.save if since_update >= 500
+        self.save if since_update >= 500 || counter >= target_view_count
       end
     end
 

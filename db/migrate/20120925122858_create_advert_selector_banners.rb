@@ -12,8 +12,12 @@ class CreateAdvertSelectorBanners < ActiveRecord::Migration
       t.text :comment
       t.boolean :confirmed, :null => false, :default => false
       t.integer :placement_id, :null => false
+      #t.boolean :in_serve_cache, :null => false, :default => false
 
       t.timestamps
     end
+
+    #add_index(:advert_selector_banners, [:in_serve_cache, :priority])
+    add_index(:advert_selector_banners, [:end_time])
   end
 end

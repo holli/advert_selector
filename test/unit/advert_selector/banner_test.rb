@@ -39,11 +39,26 @@ module AdvertSelector
       assert_equal 0, coke_second[:running_view_count], "should not save value to db after every reload"
       assert_equal 2, coke_second.running_view_count, "should fetch value from rails cache in every view"
 
-      Rails.cache.write(@coke.cache_key, 1000, :expires_in => 2.weeks)
+      Rails.cache.write(@coke.cache_key, 550, :expires_in => 2.weeks)
       @coke.add_one_viewcount
 
       coke_third = Banner.find(@coke)
-      assert_equal 1001, coke_third[:running_view_count], "should have saved value to db after so many views"
+      assert_equal 551, coke_third[:running_view_count], "should have saved value to db after so many views"
+    end
+    test "running_viewcount & add_one_viewcount reaching target" do
+      $advert_selector_avoid_cache = false
+      @coke.reset_cache
+      @coke[:running_view_count] = 0
+      @coke.target_view_count = 10
+      @coke.save
+
+      assert_equal 0, @coke.running_view_count
+      Rails.cache.write(@coke.cache_key, @coke.target_view_count-1, :expires_in => 2.weeks)
+      @coke.add_one_viewcount
+      assert_equal 10, @coke.running_view_count
+
+      coke_second = Banner.find(@coke)
+      assert_equal 10, coke_second[:running_view_count], "should save if reaching target"
     end
 
     test "view_count_per_day" do

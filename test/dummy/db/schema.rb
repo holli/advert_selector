@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20120926132649) do
     t.datetime "updated_at",                            :null => false
   end
 
+  add_index "advert_selector_banners", ["end_time"], :name => "index_advert_selector_banners_on_end_time"
+
   create_table "advert_selector_helper_items", :force => true do |t|
     t.integer  "master_id"
     t.string   "master_type"
@@ -38,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20120926132649) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "advert_selector_helper_items", ["master_type", "master_id", "position"], :name => "index_master_position"
 
   create_table "advert_selector_placements", :force => true do |t|
     t.string   "name",                         :null => false
