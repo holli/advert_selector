@@ -4,9 +4,11 @@ require "advert_selector/errors_cache"
 module AdvertSelector
 
   mattr_accessor :default_banner_test_url
+  mattr_accessor :default_time_zone
   mattr_accessor :admin_access_class
 
   self.default_banner_test_url = "http://localhost:3000/?"
+  self.default_time_zone = 'UTC'
 
   class AdminAccessClassDefault
     def self.admin_access(controller)

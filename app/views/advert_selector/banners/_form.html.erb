@@ -6,8 +6,8 @@
 
       <%= f.input :name %>
 
-      <%= f.input :start_time, :as => 'string' %>
-      <%= f.input :end_time, :as => 'string' %>
+      <%= f.input :start_time, :as => 'string', :input_html => {:value => (@banner.start_time ? @banner.start_time.iso8601 : '')} %>
+      <%= f.input :end_time, :as => 'string', :input_html => {:value => (@banner.end_time ? @banner.end_time.iso8601 : '')} %>
       <%= f.input :priority %>
       <%= f.input :target_view_count %>
       <%= f.input :fast_mode %>

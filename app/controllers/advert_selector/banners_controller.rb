@@ -30,6 +30,9 @@ module AdvertSelector
     # GET /banners/new.json
     def new
       @banner = Banner.new
+
+      @banner.start_time = Time.now.at_midnight
+      @banner.end_time = 1.week.from_now.end_of_day
   
       respond_to do |format|
         format.html # new.html.erb

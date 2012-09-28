@@ -64,6 +64,7 @@ set extra_configuration in /config/initializers/advert_selector.rb
 
 
 AdvertSelector.default_banner_test_url = "http://yourdomain.com/?"
+self.default_time_zone = 'Helsinki'
 
 class AdminAccessToGemTools
   def self.admin_access(controller)
