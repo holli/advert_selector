@@ -1,4 +1,5 @@
-require 'test/test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
+#require 'test/test_helper'
 
 class BannerShowsTest < ActionDispatch::IntegrationTest
   fixtures :all

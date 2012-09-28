@@ -6,9 +6,6 @@
   - testaa että ei pääse defaulttisetupilla tänne, defaulttina vain localhostista
 - laita autotestaus päälle
 
-- initializeri ottamaan optiona sopivat baneripaikat
-  - ei mainsivuilla sideboxia tms
-
 - duplicointi bannereille
   - kopioi nykyiset tiedot valmiiksi uuteen formiin muokattavaksi
 
@@ -29,6 +26,8 @@ during the initial requests without extra javascript calls to
 adserver. This helps to avoid problems of browser not knowing what
 size of banner there is and enables browser to render the whole page
 faster.
+
+[<img src="https://secure.travis-ci.org/holli/advert_selector.png" />](http://travis-ci.org/holli/advert_selector)
 
 ## Features
 
@@ -117,6 +116,12 @@ Remember that this is not the real viewcount that more advanced banner handling 
 
 - http://www.openx.com/
 - http://www.google.com/dfp/info/sb/index.html
+
+## Requirements
+
+Gem has been tested with ruby 1.8.7, 1.9.2 and Rails 3.2.
+
+[<img src="https://secure.travis-ci.org/holli/advert_selector.png" />](http://travis-ci.org/holli/advert_selector)
 
 ## Support
 
