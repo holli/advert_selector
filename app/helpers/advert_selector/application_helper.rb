@@ -8,8 +8,11 @@ module AdvertSelector
 
         @advert_selector_banners_selected = []
 
-        if params[:advert_selector_force] && banner = Banner.find_by_id(params[:advert_selector_force])
-          advert_selector_banner_force(banner)
+        if params[:advert_selector_force]
+          $advert_selector_banners_load_time = nil # reload everything
+          if banner = Banner.find_by_id(params[:advert_selector_force])
+            advert_selector_banner_force(banner)
+          end
         end
 
         advert_selector_banners.each do |banner|
