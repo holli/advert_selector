@@ -28,7 +28,7 @@ module AdvertSelector
         content_tag :div, :id => "advert_selector_info", :class => 'alert alert-info', :style => "position: fixed; bottom: 5px;" do
           content_tag(:strong) { "AdvertSelectorInfos for HelperItems:<br/>".html_safe } +
           content_tag(:ul) {
-            @advert_selector_force_banner_infos.to_a.collect{|k, v| content_tag(:li){"#{k} : #{v}".html_safe} }.join("\n").html_safe
+            @advert_selector_force_banner_infos.to_a.collect{|k, v| content_tag(:li){"#{k} : #{h(v)}".html_safe} }.join("\n").html_safe
           }
         end
       end
@@ -53,7 +53,8 @@ module AdvertSelector
 
         advert_selector_placement_once_per_session_shown(banner.placement)
         advert_selector_banner_frequency_shown(banner)
-        banner.add_one_viewcount
+
+        banner.add_one_viewcount unless request.user_agent =~ /bot/i
 
         @advert_selector_banners_selected.push(banner)
 

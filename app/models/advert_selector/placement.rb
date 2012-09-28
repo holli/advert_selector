@@ -1,6 +1,6 @@
 module AdvertSelector
   class Placement < ActiveRecord::Base
-    attr_accessible :conflicting_placements_array, :name, :request_delay, :only_once_per_session
+    attr_accessible :conflicting_placements_array, :name, :comment, :request_delay, :only_once_per_session
 
     has_many :banners, :inverse_of => :placement
 

@@ -40,8 +40,10 @@ in /gemfile
 # bundle exec rake railties:install:migrations
 # rake db:migrate
 
-in views/layouts/your_layout
-  <%= AdvertSelector.initialize %>
+in top of views/layouts/your_layout
+  <% advert_selector_initialize(:all) %>
+  and if you want testing info then at the bottom
+  <%= advert_selector_force_test_infos %>
 
 set to somewhere in your layout e.g.
   <%= content_for :banner_header %>
@@ -61,7 +63,7 @@ test the admin tool in url
 set extra_configuration in /config/initializers/advert_selector.rb
 
 
-AdvertSelector.default_banner_test_url = "yourdomain.com/?"
+AdvertSelector.default_banner_test_url = "http://yourdomain.com/?"
 
 class AdminAccessToGemTools
   def self.admin_access(controller)
@@ -72,7 +74,7 @@ class AdminAccessToGemTools
     end
   end
 end
-ActionSmser.admin_access_class = AdminAccessToGemTools
+AdvertSelector.admin_access_class = AdminAccessToGemTools
 
 
 ```
