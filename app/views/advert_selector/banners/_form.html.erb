@@ -13,7 +13,7 @@
       <%= f.input :fast_mode %>
       <%= f.input :frequency %>
       <%= f.input :comment, :input_html => {:rows => 5}  %>
-      <%= f.input :confirmed %>
+      <%= f.input :confirmed, :label_html => {:style => ((@banner.new_record? || @banner.confirmed?) ? '' : 'color: red; font-weight: bold')} %>
       <%= f.association :placement %>
 
     </div>

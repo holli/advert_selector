@@ -54,10 +54,10 @@ module AdvertSelector
       @show_now_today_target == true || current_view_count < @show_now_today_target
     end
 
-    def show_now_basics?
+    def show_now_basics?(with_timings = true)
       confirmed? &&
-        (start_time.nil? || start_time < Time.now) &&
-        (end_time.nil? || Time.now < end_time) &&
+        (with_timings || start_time.nil? || start_time < Time.now) &&
+        (with_timings || end_time.nil? || Time.now < end_time) &&
         show_today_has_viewcounts?
     end
 
