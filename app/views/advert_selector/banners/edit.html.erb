@@ -7,13 +7,10 @@
 
 <br/>
 
-<% #TODO fix default url
-
-default_url = "http://localhost.inv:3000/?"
-%>
 Test banner in url :
 
-<input type="text" name="test_url" style="width: 500px;" value="<%= AdvertSelector.default_banner_test_url + "advert_selector_force=#{@banner.id}" %>">
+<input type="text" name="test_url" id="test_url" style="width: 500px;" value="<%= AdvertSelector.default_banner_test_url + "advert_selector_force=#{@banner.id}" %>">
+<button class="btn btn-info" type="button" onclick="window.open(document.getElementById('test_url').value)">Test</button>
 
 <hr/>
 
