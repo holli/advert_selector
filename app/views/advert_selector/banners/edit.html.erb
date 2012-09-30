@@ -1,4 +1,4 @@
-<h1>Banner <%= @banner.name %></h1>
+<h1>Banner <%= @banner.name %> <small> - <%= link_to('Duplicate banner', new_banner_url(:duplicate_id => @banner.id)) %></small></h1>
 
 <% unless @banner.target_view_count.nil? %>
   <strong>Current view count:</strong> <%= @banner.running_view_count %> / <%= @banner.target_view_count %>

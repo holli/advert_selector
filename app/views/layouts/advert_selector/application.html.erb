@@ -50,14 +50,6 @@
     <div class="span3">
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
-          <li class="nav-header">
-            <%= link_to 'Placements', placements_url %>
-          </li>
-          <% AdvertSelector::Placement.all.each do |placement| %>
-            <li><%= link_to placement.name, edit_placement_url(placement) %></li>
-          <% end %>
-          <li><%= link_to 'Create New', new_placement_url %></li>
-
           <li class="nav-header"><%= link_to 'Banners', banners_url %></li>
           <% AdvertSelector::Banner.order('priority desc').limit(10).each do |banner| %>
             <li><%= link_to "#{banner.name} -> #{banner.placement.name}", edit_banner_url(banner) %></li>
@@ -65,6 +57,14 @@
 
           <li><%= link_to 'Show all', banners_url %></li>
           <li><%= link_to 'Create New', new_banner_url %></li>
+
+          <li class="nav-header">
+            <%= link_to 'Placements', placements_url %>
+          </li>
+          <% AdvertSelector::Placement.all.each do |placement| %>
+            <li><%= link_to placement.name, edit_placement_url(placement) %></li>
+          <% end %>
+          <li><%= link_to 'Create New', new_placement_url %></li>
         </ul>
       </div><!--/.well -->
     </div><!--/span-->

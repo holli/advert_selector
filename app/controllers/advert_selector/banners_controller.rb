@@ -29,11 +29,21 @@ module AdvertSelector
     # GET /banners/new
     # GET /banners/new.json
     def new
-      @banner = Banner.new
+      if params[:duplicate_id] && banner_dup = Banner.find_by_id(params[:duplicate_id])
+        @banner = banner_dup.dup
+        @banner.name += " (copy)"
+        @banner.confirmed = false
 
-      @banner.start_time = Time.now.at_midnight
-      @banner.end_time = 1.week.from_now.end_of_day
-  
+        banner_dup.helper_items.each do |hi|
+          @banner.helper_items << hi.dup
+        end
+
+      else
+        @banner = Banner.new
+        @banner.start_time = Time.now.at_midnight
+        @banner.end_time = 1.week.from_now.end_of_day
+      end
+
       respond_to do |format|
         format.html # new.html.erb
         format.json { render :json => @banner }
