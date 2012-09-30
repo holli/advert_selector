@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Rails adserver tool for selecting a smaller subset of banners from all possible banners with differing banner placement combinations."
   s.description = "Rails adserver tool for selecting a smaller subset of banners from all possible banners with differing banner placement combinations. Gem includes admin tools for handling banners in live environment. Includes basic targeting, viewcount, frequency etc setups."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.8"
