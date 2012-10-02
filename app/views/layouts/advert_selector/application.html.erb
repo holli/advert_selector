@@ -51,7 +51,7 @@
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
           <li class="nav-header"><%= link_to 'Banners', banners_url %></li>
-          <% AdvertSelector::Banner.order('priority desc').limit(10).each do |banner| %>
+          <% AdvertSelector::Banner.order('priority desc').where('end_time is null or end_time > ?', 2.days.ago).limit(10).each do |banner| %>
             <li><%= link_to "#{banner.name} -> #{banner.placement.name}", edit_banner_url(banner) %></li>
           <% end %>
 
