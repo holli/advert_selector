@@ -117,6 +117,25 @@ module AdvertSelector
       assert !@coke.show_now_basics?, "target reached"
     end
 
+    test "show_now_basic? time usages" do
+      assert @coke.show_now_basics?, "setup is wrong"
+
+      @coke.start_time = 1.hour.from_now
+      @coke.save!
+      assert !@coke.show_now_basics?, "should not display if advert in future"
+
+      @coke.start_time = 2.hour.ago
+      @coke.end_time = 1.hour.ago
+      @coke.save!
+      assert !@coke.show_now_basics?, "should not display if advert in past"
+
+      @coke.start_time = nil
+      @coke.end_time = 1.hour.from_now
+      @coke.save!
+      assert @coke.show_now_basics?, "should display if advert has only end_time in the future"
+
+    end
+
     test "HelperItems" do
       helper_items_count = HelperItem.count
       @coke.helper_items.build

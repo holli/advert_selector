@@ -77,8 +77,8 @@ module AdvertSelector
 
     def advert_selector_banner_force(banner)
       @advert_selector_force_banner_infos  = []
-      @advert_selector_force_banner_infos.push [:show_now_basics_without_timings, banner.show_now_basics?(false)]
-      @advert_selector_force_banner_infos.push [:show_now_basics_with_timings, banner.show_now_basics?]
+      @advert_selector_force_banner_infos.push [:show_now_basics_times_not_used, banner.show_now_basics?(false)]
+      @advert_selector_force_banner_infos.push [:show_now_basics_with_times, banner.show_now_basics?]
       @advert_selector_force_banner_infos.push [:placement_free, advert_selector_placement_free?(banner.placement)]
       @advert_selector_force_banner_infos.push [:placement_once_per_session, advert_selector_placement_once_per_session_ok?(banner.placement)]
       @advert_selector_force_banner_infos.push [:frequency, advert_selector_banner_frequency_ok?(banner)]
