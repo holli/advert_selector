@@ -42,6 +42,16 @@ module AdvertSelector
       put :update, :id => @banner, :banner => { :comment => @banner.comment }
       assert_redirected_to banner_path(assigns(:banner))
     end
+
+    test "should update banner running view count" do
+      @banner.add_one_viewcount
+      @banner.save
+      put :update_running_view_count, :id => @banner, :banner => { :running_view_count => 99 }
+      assert_response :redirect
+      assert_equal 99, @banner.running_view_count
+      assert_equal 99, AdvertSelector::Banner.find(@banner)[:running_view_count]
+
+    end
   
     test "should destroy banner" do
       assert_difference('Banner.count', -1) do

@@ -86,7 +86,26 @@ module AdvertSelector
         end
       end
     end
-  
+
+
+    def update_running_view_count
+      @banner = Banner.find(params[:id])
+      if !(@count = params['banner']["running_view_count"]).blank?
+        @count = @count.to_i
+        Banner.where(:id => @banner.id).update_all(:running_view_count => @count)
+        50.times do
+          # We are trying to make sure that no other process will overwrite this value
+          Rails.cache.write(@banner.cache_key, @count, :expires_in => 2.weeks)
+          sleep(0.02)
+        end
+        Banner.where(:id => @banner.id).update_all(:running_view_count => @count)
+        #@banner[:running_view_count] = @count
+        #@banner.save
+      end
+
+      redirect_to @banner
+    end
+
     # DELETE /banners/1
     # DELETE /banners/1.json
     def destroy
@@ -98,5 +117,6 @@ module AdvertSelector
         format.json { head :no_content }
       end
     end
+
   end
 end

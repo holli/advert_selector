@@ -16,5 +16,14 @@ Test banner in url :
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @banner %> |
-<%= link_to 'Back', banners_path %>
+
+<hr/>
+
+<%= simple_form_for(@banner, :url => update_running_view_count_banner_url(@banner), :html => {:class => 'form-inline'}) do |f| %>
+
+  <strong>Running view count:</strong>
+  <input class="numeric integer optional" id="banner_running_view_count" name="banner[running_view_count]" step="1" value="<%= @banner.running_view_count %>" type="number">
+
+  <%= f.button :submit, 'Change running view count' %>
+
+<% end %>

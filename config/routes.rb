@@ -7,6 +7,7 @@ AdvertSelector::Engine.routes.draw do
 
   resources :banners do
     #resources :helper_items
+    put 'update_running_view_count', :on => :member
   end
 
   resources :placements
