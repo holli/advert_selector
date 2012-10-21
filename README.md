@@ -54,6 +54,8 @@ in config/routes
 test the admin tool in url
   http://localhost:3000/advert_selector/
 
+If you have problems, try to install simple_form again by setting `gem simple_form` to .Gemfile.
+
 ```
 
 ## Configuration
