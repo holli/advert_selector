@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     advert_selector (1.0.0)
+      acts_as_list
       jquery-rails
       rails (~> 3.2.8)
       simple_form

@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2.8"
   s.add_dependency "jquery-rails"
   s.add_dependency "simple_form"
+  s.add_dependency "acts_as_list"
 
   #s.add_development_dependency "jquery-rails"
 
