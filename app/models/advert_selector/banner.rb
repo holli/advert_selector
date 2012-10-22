@@ -47,7 +47,7 @@ module AdvertSelector
             total_days = ((end_time - start_time)/1.day).round
             daily_view_count = target_view_count/total_days
 
-            days_ending_today = ((Time.now.end_of_day - start_time)/1.day).round
+            days_ending_today = ((Time.now.end_of_day - start_time)/1.day).ceil
             days_ending_today * daily_view_count
           end
 

@@ -101,6 +101,14 @@ module AdvertSelector
       @coke.reload
       @coke.target_view_count = nil
       assert @coke.show_today_has_viewcounts?(1), "should be true if no target viewcount"
+
+      Timecop.travel( Time.now.at_midnight + 19.hours ) do
+        @coke.reload
+        @coke.update_attributes!(:start_time => 1.hour.ago, :end_time => 10.days.from_now.at_beginning_of_day,
+                               :target_view_count => 100)
+        @coke.running_view_count = 0
+        assert @coke.show_today_has_viewcounts?(), "should be true for the first day even if start is later in the evening"        
+      end
     end
 
     test "show_now_basic? for default banners" do
