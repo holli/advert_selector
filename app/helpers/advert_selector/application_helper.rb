@@ -10,7 +10,7 @@ module AdvertSelector
 
         if params[:advert_selector_force]
           $advert_selector_banners_load_time = nil # reload everything
-          if banner = Banner.find_by_id(params[:advert_selector_force])
+          if (banner = Banner.find_by_id(params[:advert_selector_force])) && banner.start_time.to_i.to_s == params[:advert_selector_force_stamp]
             advert_selector_banner_force(banner)
           end
         end

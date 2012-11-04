@@ -9,7 +9,7 @@
 
 Test banner in url :
 
-<input type="text" name="test_url" id="test_url" style="width: 500px;" value="<%= AdvertSelector.default_banner_test_url + "advert_selector_force=#{@banner.id}" %>">
+<input type="text" name="test_url" id="test_url" style="width: 500px;" value="<%= AdvertSelector.default_banner_test_url + "advert_selector_force=#{@banner.id}&advert_selector_force_stamp=#{@banner.start_time.to_i}" %>">
 <button class="btn btn-info" type="button" onclick="window.open(document.getElementById('test_url').value)">Test</button>
 
 <hr/>

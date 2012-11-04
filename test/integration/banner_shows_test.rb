@@ -143,7 +143,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
     assert !response_includes_banner?(@parade_banner)
     assert_select '#advert_selector_info', :count => 0
 
-    get "/?advert_selector_force=#{@parade_banner.id}"
+    get "/?advert_selector_force=#{@parade_banner.id}&advert_selector_force_stamp=#{@parade_banner.start_time.to_i}"
     assert_response :success
     assert response_includes_banner?(@parade_banner)
 
