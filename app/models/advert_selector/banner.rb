@@ -32,23 +32,22 @@ module AdvertSelector
     end
 
     def show_today_has_viewcounts?(current_view_count = nil)
-      return true if target_view_count.nil? || fast_mode?
+      return true if target_view_count.nil?
 
       current_view_count = running_view_count if current_view_count.nil?
 
       return false if current_view_count >= target_view_count
+      return true if fast_mode?
 
       @show_now_today_target ||=
           if target_view_count.nil? || end_time.nil? || end_time < 24.hours.from_now
             true
           else
-            #view_count_remaining = target_view_count - current_view_count
+            total_hours = ((end_time - start_time - 12.hours)/1.hour).round
+            hourly_view_count = target_view_count/total_hours
 
-            total_days = ((end_time - start_time)/1.day).round
-            daily_view_count = target_view_count/total_days
-
-            days_ending_today = ((Time.now.end_of_day - start_time)/1.day).ceil
-            days_ending_today * daily_view_count
+            hours_ending_now = ((Time.now.end_of_hour - start_time)/1.hour).ceil
+            hours_ending_now * hourly_view_count
           end
 
       @show_now_today_target == true || current_view_count < @show_now_today_target

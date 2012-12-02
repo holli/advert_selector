@@ -45,6 +45,7 @@ module AdvertSelector
       coke_third = Banner.find(@coke)
       assert_equal 551, coke_third[:running_view_count], "should have saved value to db after so many views"
     end
+
     test "running_viewcount & add_one_viewcount reaching target" do
       $advert_selector_avoid_cache = false
       @coke.reset_cache
@@ -61,16 +62,79 @@ module AdvertSelector
       assert_equal 10, coke_second[:running_view_count], "should save if reaching target"
     end
 
-    test "view_count_per_day" do
-      @coke.update_attributes!(:start_time => Time.now.at_beginning_of_day, :end_time => 10.days.from_now.at_beginning_of_day,
-                               :target_view_count => 100)
+    test "view_count per_hour" do
+
+      start_time = Time.now.at_beginning_of_day
+
+      # 10 views per hour
+      @coke.update_attributes!(:start_time => start_time, :end_time => start_time + 112.hours,
+                               :target_view_count => 1000, :fast_mode => false)
       @coke.running_view_count = 0
       @coke.save!
+
+      Timecop.travel( start_time + 4.5.hours  )
+      assert @coke.show_today_has_viewcounts?
+
+      @coke.reload
+      @coke.running_view_count = 39
+      assert @coke.show_today_has_viewcounts?
+
+      @coke.reload
+      @coke.running_view_count = 49
+      assert @coke.show_today_has_viewcounts?
+
+      @coke.reload
+      @coke.running_view_count = 51
+      assert !@coke.show_today_has_viewcounts?
+
+      Timecop.travel( start_time + 90.hours )
+      @coke.reload
+      @coke.running_view_count = 990
+      assert @coke.show_today_has_viewcounts?, "should let last 24h to display everything straight away"
+
+    end
+
+    test "view_count basics compare_value and per_fast_mode" do
+      start_time = Time.now.at_beginning_of_day
+
+      # 10 views per hour
+      @coke.update_attributes!(:start_time => start_time, :end_time => start_time + 112.hours,
+                               :target_view_count => 1000, :fast_mode => false)
+      @coke.running_view_count = 0
+      @coke.save!
+
+      Timecop.travel( start_time + 4.5.hours  )
+
+      assert @coke.show_today_has_viewcounts?
+      @coke.reload
+      assert !@coke.show_today_has_viewcounts?(900), "use given value in has_viewcounts"
+
+      @coke.reload
+      @coke.fast_mode = true
+      assert @coke.show_today_has_viewcounts?(900), "true always with fast_mode on"
+
+      @coke.reload
+      @coke.fast_mode = true
+      assert !@coke.show_today_has_viewcounts?(1010), "should be false if viewcount has been achieved even though in fast mode"
+
+      @coke.reload
+      @coke.target_view_count = nil
+      assert @coke.show_today_has_viewcounts?(2000), "should be true if no target viewcount"
+    end
+
+    test "view_count daily tests" do
+      start_time = Time.now.at_beginning_of_day
+      @coke.update_attributes!(:start_time => start_time, :end_time => 10.days.from_now.at_beginning_of_day,
+                               :target_view_count => 1000, :fast_mode => false)
+      @coke.running_view_count = 0
+      @coke.save!
+
+      Timecop.travel( start_time + 11.hours  )
 
       assert @coke.show_today_has_viewcounts?
 
       @coke.reload
-      @coke.running_view_count = 13
+      @coke.running_view_count = 130
       assert !@coke.show_today_has_viewcounts?, "daily limit should be full"
 
       @coke.fast_mode = true
@@ -80,32 +144,32 @@ module AdvertSelector
 
       Timecop.travel( 5.days.from_now.at_midnight + 12.hours ) do
         @coke.reload
-        @coke.running_view_count = 30
+        @coke.running_view_count = 300
         assert @coke.show_today_has_viewcounts?
-        assert @coke.show_today_has_viewcounts?(30)
-        assert !@coke.show_today_has_viewcounts?(60), "should compare with given value"
+        assert @coke.show_today_has_viewcounts?(300)
+        assert !@coke.show_today_has_viewcounts?(600), "should compare with given value"
 
         @coke.reload
-        @coke.running_view_count = 60
+        @coke.running_view_count = 600
         assert !@coke.show_today_has_viewcounts?
       end
 
       Timecop.travel( 9.days.from_now.at_midnight + 12.hours ) do
         @coke.reload
-        assert @coke.show_today_has_viewcounts?(99), "last day should always be true"
+        assert @coke.show_today_has_viewcounts?(990), "last day should always be true"
       end
 
       @coke.reload
-      assert !@coke.show_today_has_viewcounts?(101), "should be false if viewcount has been achieved"
+      assert !@coke.show_today_has_viewcounts?(1010), "should be false if viewcount has been achieved"
 
       @coke.reload
       @coke.target_view_count = nil
-      assert @coke.show_today_has_viewcounts?(1), "should be true if no target viewcount"
+      assert @coke.show_today_has_viewcounts?(1000), "should be true if no target viewcount"
 
-      Timecop.travel( Time.now.at_midnight + 19.hours ) do
+      Timecop.travel( start_time + 19.hours ) do
         @coke.reload
-        @coke.update_attributes!(:start_time => 1.hour.ago, :end_time => 10.days.from_now.at_beginning_of_day,
-                               :target_view_count => 100)
+        @coke.update_attributes!(:start_time => start_time + 18.hours, :end_time => 10.days.from_now.at_beginning_of_day,
+                               :target_view_count => 1000)
         @coke.running_view_count = 0
         assert @coke.show_today_has_viewcounts?(), "should be true for the first day even if start is later in the evening"        
       end

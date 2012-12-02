@@ -61,7 +61,7 @@ module AdvertSelector
 
         @advert_selector_banners_selected.push(banner)
 
-        Rails.logger.info("Showing banner #{banner.name} in placement #{banner.placement.name}")
+        Rails.logger.info("Showing banner (#{banner.id}) #{banner.name} in placement #{banner.placement.name}")
       end
 
     rescue => e

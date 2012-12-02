@@ -5,11 +5,14 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   setup do
+    @coke.reload
     @coke.fast_mode = true
     @coke.save!
     assert @coke.show_now_basics?, "fixtures problem"
+    @pepsi.reload
     @pepsi.update_attribute(:confirmed, false)
-    assert !@pepsi.show_now_basics?
+    assert !@pepsi.show_now_basics?, "fixtures prolbem 2"
+    AdvertSelector.admin_access_class = AdvertSelector::AdminAccessClassAlwaysTrue
   end
 
   def response_includes_banner?(banner)
@@ -19,7 +22,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
     assert response_includes_banner?(banner), "should have default banner content in response"
   end
 
-  test "normal request and banner loading asdf" do
+  test "normal request and banner loading" do
     AdvertSelector::Banner.expects(:find_current).twice.returns(AdvertSelector::Banner.find_future)
 
     get '/'
