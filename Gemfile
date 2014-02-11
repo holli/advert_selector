@@ -17,7 +17,7 @@ gem "jquery-rails"
 # gem 'ruby-debug'
 
 gem 'simple_form'
-gem 'pry'
 gem 'acts_as_list'
+#gem 'pry'
 gem 'timecop'
 gem 'mocha', :require => false

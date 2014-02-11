@@ -121,7 +121,7 @@ Remember that this is not the real viewcount that more advanced banner handling 
 
 ## Requirements
 
-Gem has been tested with ruby 1.8.7, 1.9.2 and Rails 3.2.
+Gem has been tested with Ruby 1.9.3, Ruby 2.1 and Rails 3.2.
 
 [<img src="https://secure.travis-ci.org/holli/advert_selector.png" />](http://travis-ci.org/holli/advert_selector)
 

@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   mount AdvertSelector::Engine => "/advert_selector"
 
-  match '(:action)' => 'examples'
+  match '(:action)' => 'examples', via: [:get, :post]
 
 end

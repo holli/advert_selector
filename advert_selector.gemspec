@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   #s.add_development_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "pry"
-  s.add_development_dependency "mocha"
-  s.add_development_dependency "timecop"
+  #s.add_development_dependency "pry"
+  #s.add_development_dependency "mocha"
+  #s.add_development_dependency "timecop"
 
 end
