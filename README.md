@@ -83,7 +83,7 @@ AdvertSelector.admin_access_class = AdminAccessToGemTools
 ```
 
 
-## Trageting / Content / HelperItem
+## Targeting / Content / HelperItem
 
 All contents and targetings are done through HelperItem-model.
 
