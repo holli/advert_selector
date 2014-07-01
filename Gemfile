@@ -16,6 +16,7 @@ gem "jquery-rails"
 # To use debugger
 # gem 'ruby-debug'
 
+gem 'protected_attributes'
 gem 'simple_form'
 gem 'acts_as_list'
 #gem 'pry'
