@@ -29,7 +29,7 @@ module AdvertSelector
     # GET /banners/new
     # GET /banners/new.json
     def new
-      if params[:duplicate_id] && banner_dup = Banner.find_by_id(params[:duplicate_id])
+      if params[:duplicate_id] && banner_dup = Banner.find(params[:duplicate_id])
         @banner = banner_dup.dup
         @banner.name += " (copy)"
         @banner.confirmed = false
@@ -58,7 +58,7 @@ module AdvertSelector
     # POST /banners
     # POST /banners.json
     def create
-      @banner = Banner.new(params[:banner])
+      @banner = Banner.new(banner_params)
   
       respond_to do |format|
         if @banner.save
@@ -77,7 +77,7 @@ module AdvertSelector
       @banner = Banner.find(params[:id])
   
       respond_to do |format|
-        if @banner.update_attributes(params[:banner])
+        if @banner.update_columns(banner_params)
           format.html { redirect_to @banner, :notice => 'Banner was successfully updated.' }
           format.json { head :no_content }
         else
@@ -118,5 +118,9 @@ module AdvertSelector
       end
     end
 
+    private
+    def banner_params
+      params.require(:banner).permit(:comment, :end_time, :frequency, :name, :placement_id, :start_time, :target_view_count)
+    end
   end
 end

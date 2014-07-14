@@ -1,6 +1,6 @@
 module AdvertSelector
   class HelperItem < ActiveRecord::Base
-    attr_accessible :master_id, :master_type, :name, :position, :content_for, :content
+    # attr_accessible :master_id, :master_type, :name, :position, :content_for, :content
 
     #belongs_to :master, :polymorphic => true
     #acts_as_list :scope => [:master_id, :master_type]

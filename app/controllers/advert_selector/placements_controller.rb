@@ -45,7 +45,7 @@ module AdvertSelector
     # POST /placements
     # POST /placements.json
     def create
-      @placement = Placement.new(params[:placement])
+      @placement = Placement.new(placement_params)
   
       respond_to do |format|
         if @placement.save
@@ -64,7 +64,7 @@ module AdvertSelector
       @placement = Placement.find(params[:id])
   
       respond_to do |format|
-        if @placement.update_attributes(params[:placement])
+        if @placement.update_columns(placement_params)
           format.html { redirect_to @placement, :notice => 'Placement was successfully updated.' }
           format.json { head :no_content }
         else
@@ -85,5 +85,11 @@ module AdvertSelector
         format.json { head :no_content }
       end
     end
+
+    private
+    def placement_params
+      params.require(:placement).permit(:conflicting_placements_array, :name, :comment, :request_delay, :only_once_per_session)
+    end
+
   end
 end
