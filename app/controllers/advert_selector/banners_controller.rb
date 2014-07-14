@@ -77,7 +77,7 @@ module AdvertSelector
       @banner = Banner.find(params[:id])
   
       respond_to do |format|
-        if @banner.update_columns(banner_params)
+        if @banner.update(banner_params)
           format.html { redirect_to @banner, :notice => 'Banner was successfully updated.' }
           format.json { head :no_content }
         else

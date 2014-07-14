@@ -67,7 +67,7 @@ module AdvertSelector
       start_time = Time.now.at_beginning_of_day
 
       # 10 views per hour
-      @coke.update_columns(:start_time => start_time, :end_time => start_time + 112.hours,
+      @coke.update(:start_time => start_time, :end_time => start_time + 112.hours,
                                :target_view_count => 1000, :fast_mode => false)
       @coke.running_view_count = 0
       @coke.save!
@@ -98,7 +98,7 @@ module AdvertSelector
       start_time = Time.now.at_beginning_of_day
 
       # 10 views per hour
-      @coke.update_columns(:start_time => start_time, :end_time => start_time + 112.hours,
+      @coke.update(:start_time => start_time, :end_time => start_time + 112.hours,
                                :target_view_count => 1000, :fast_mode => false)
       @coke.running_view_count = 0
       @coke.save!
@@ -124,7 +124,7 @@ module AdvertSelector
 
     test "view_count daily tests" do
       start_time = Time.now.at_beginning_of_day
-      @coke.update_columns(:start_time => start_time, :end_time => 10.days.from_now.at_beginning_of_day,
+      @coke.update(:start_time => start_time, :end_time => 10.days.from_now.at_beginning_of_day,
                                :target_view_count => 1000, :fast_mode => false)
       @coke.running_view_count = 0
       @coke.save!
@@ -168,7 +168,7 @@ module AdvertSelector
 
       Timecop.travel( start_time + 19.hours ) do
         @coke.reload
-        @coke.update_columns(:start_time => start_time + 18.hours, :end_time => 10.days.from_now.at_beginning_of_day,
+        @coke.update(:start_time => start_time + 18.hours, :end_time => 10.days.from_now.at_beginning_of_day,
                                :target_view_count => 1000)
         @coke.running_view_count = 0
         assert @coke.show_today_has_viewcounts?(), "should be true for the first day even if start is later in the evening"        

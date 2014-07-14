@@ -64,7 +64,7 @@ module AdvertSelector
       @placement = Placement.find(params[:id])
   
       respond_to do |format|
-        if @placement.update_columns(placement_params)
+        if @placement.update(placement_params)
           format.html { redirect_to @placement, :notice => 'Placement was successfully updated.' }
           format.json { head :no_content }
         else
