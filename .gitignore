@@ -8,3 +8,7 @@ test/dummy/.sass-cache
 
 .idea
 .rvmrc
+
+*.gem
+.bundle
+Gemfile.lock
