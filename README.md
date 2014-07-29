@@ -119,15 +119,14 @@ Remember that this is not the real viewcount that more advanced banner handling 
 - http://www.openx.com/
 - http://www.google.com/dfp/info/sb/index.html
 
-## Requirements
-
-Gem has been tested with Ruby 1.9.3, Ruby 2.1 and Rails 3.2.
-
-[<img src="https://secure.travis-ci.org/holli/advert_selector.png" />](http://travis-ci.org/holli/advert_selector)
 
 ## Support
 
 Submit suggestions or feature requests as a GitHub Issue or Pull Request. Remember to update tests. Tests are quite extensive.
+
+Check travis for what environments are supported http://travis-ci.org/#!/holli/advert_selector
+
+[<img src="https://secure.travis-ci.org/holli/advert_selector.png" />](http://travis-ci.org/holli/advert_selector)
 
 ## Licence
 
