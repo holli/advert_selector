@@ -120,7 +120,12 @@ module AdvertSelector
 
     private
     def banner_params
-      params.require(:banner).permit(:comment, :end_time, :frequency, :name, :placement_id, :start_time, :target_view_count)
+      params
+        .require(:banner)
+        .permit(
+          :comment, :end_time, :frequency, :name, :placement_id, :start_time, :target_view_count, :priority, :confirmed, :fast_mode,
+          :helper_items_attributes => [:id, :name, :content_for, :position, :content]
+        )
     end
   end
 end
