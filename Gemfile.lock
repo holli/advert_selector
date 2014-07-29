@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    advert_selector (1.0.4)
+    advert_selector (2.0.0)
       acts_as_list
       jquery-rails
-      rails (~> 4.0.0)
+      rails (~> 4.0)
       simple_form
 
 GEM
@@ -101,6 +101,7 @@ DEPENDENCIES
   advert_selector!
   jquery-rails
   mocha
+  rails (>= 4.0)
   simple_form
   sqlite3
   timecop
