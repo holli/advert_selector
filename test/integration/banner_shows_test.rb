@@ -10,7 +10,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
     @coke.save!
     assert @coke.show_now_basics?, "fixtures problem"
     @pepsi.reload
-    @pepsi.update_attribute(:confirmed, false)
+    @pepsi.update({:confirmed => false})
     assert !@pepsi.show_now_basics?, "fixtures prolbem 2"
     AdvertSelector.admin_access_class = AdvertSelector::AdminAccessClassAlwaysTrue
   end
@@ -64,7 +64,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
   end
 
   test "banner_frequency, limit frequency within one week" do
-    @coke.update_attribute(:frequency, 2)
+    @coke.update({:frequency => 2})
 
     get '/'
     assert_response :success
@@ -118,7 +118,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
 
 
   test "complex setup conflicting banners placements" do
-    @parade_banner.update_attributes!(:confirmed => true, :frequency => 1)
+    @parade_banner.update({:confirmed => true, :frequency => 1})
     get '/'
     assert_response :success
     assert response_includes_banner?(@parade_banner)
@@ -131,7 +131,7 @@ class BannerShowsTest < ActionDispatch::IntegrationTest
   end
 
   test "complex setup multiple banners placements" do
-    @parade_banner.update_attributes!(:confirmed => true, :frequency => 1)
+    @parade_banner.update({:confirmed => true, :frequency => 1})
     @parade_banner.placement.conflicting_placements_array = ""
     @parade_banner.placement.save!
 

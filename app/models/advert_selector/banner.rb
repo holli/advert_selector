@@ -1,12 +1,12 @@
 module AdvertSelector
   class Banner < ActiveRecord::Base
-    attr_accessible :comment, :confirmed, :start_time, :end_time,
-                    :frequency, :name, :placement_id, :target_view_count, :priority,
-                    :fast_mode, :helper_items_attributes
+    #attr_accessible :comment, :confirmed, :start_time, :end_time,
+    #                :frequency, :name, :placement_id, :target_view_count, :priority,
+    #                :fast_mode, :helper_items_attributes
 
     belongs_to :placement, :inverse_of => :banners
 
-    has_many :helper_items, :order => "position", :dependent => :destroy
+    has_many :helper_items, -> { order(:position) }, :dependent => :destroy
     accepts_nested_attributes_for :helper_items
 
     scope :find_future, lambda {
