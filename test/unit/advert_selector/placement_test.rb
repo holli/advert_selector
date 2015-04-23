@@ -39,10 +39,10 @@ module AdvertSelector
       @parade.conflicting_placements_array = 'video,not_found'
       assert @parade.save
 
-      new_parade = Placement.find(@parade)
+      new_parade = Placement.find(@parade.id)
       assert_equal [:parade, :not_found, :video], new_parade.conflicting_placements
 
-      new_leaderboard = Placement.find(@leaderboard)
+      new_leaderboard = Placement.find(@leaderboard.id)
       assert new_leaderboard.conflicting_placements_array.blank?
     end
 
