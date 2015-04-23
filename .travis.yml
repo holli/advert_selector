@@ -1,8 +1,9 @@
 rvm:
   - 2.0
-  - 2.1
+  - 2.2
 before_script:
   - 'RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'
 env:
   - "RAILS_VERSION=4.0.8"
-  - "RAILS_VERSION=4.1.4"
+  - "RAILS_VERSION=4.1.10"
+  - "RAILS_VERSION=4.2.1"

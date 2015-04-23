@@ -35,14 +35,14 @@ module AdvertSelector
       @coke.add_one_viewcount
       assert_equal 2, @coke.running_view_count
 
-      coke_second = Banner.find(@coke)
+      coke_second = Banner.find(@coke.id)
       assert_equal 0, coke_second[:running_view_count], "should not save value to db after every reload"
       assert_equal 2, coke_second.running_view_count, "should fetch value from rails cache in every view"
 
       Rails.cache.write(@coke.cache_key, 550, :expires_in => 2.weeks)
       @coke.add_one_viewcount
 
-      coke_third = Banner.find(@coke)
+      coke_third = Banner.find(@coke.id)
       assert_equal 551, coke_third[:running_view_count], "should have saved value to db after so many views"
     end
 
@@ -58,7 +58,7 @@ module AdvertSelector
       @coke.add_one_viewcount
       assert_equal 10, @coke.running_view_count
 
-      coke_second = Banner.find(@coke)
+      coke_second = Banner.find(@coke.id)
       assert_equal 10, coke_second[:running_view_count], "should save if reaching target"
     end
 
@@ -215,7 +215,7 @@ module AdvertSelector
       @coke.helper_items.build(:name => 'some_limit_helper_here', :position => 0)
       assert @coke.save
 
-      banner = Banner.find(@coke)
+      banner = Banner.find(@coke.id)
 
       assert_equal helper_items_count+2, HelperItem.count
 

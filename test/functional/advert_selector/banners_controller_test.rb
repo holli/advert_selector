@@ -49,7 +49,7 @@ module AdvertSelector
       put :update_running_view_count, :id => @banner, :banner => { :running_view_count => 99 }
       assert_response :redirect
       assert_equal 99, @banner.running_view_count
-      assert_equal 99, AdvertSelector::Banner.find(@banner)[:running_view_count]
+      assert_equal 99, AdvertSelector::Banner.find(@banner.id)[:running_view_count]
 
     end
   
