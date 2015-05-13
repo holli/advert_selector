@@ -1,3 +1,6 @@
+gem 'simple_form'
+gem 'acts_as_list'
+
 require "advert_selector/engine"
 require "advert_selector/errors_cache"
 
