@@ -1,5 +1,5 @@
-gem 'simple_form'
-gem 'acts_as_list'
+require 'acts_as_list'
+require 'simple_form'
 
 require "advert_selector/engine"
 require "advert_selector/errors_cache"

@@ -9,46 +9,46 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926132649) do
+ActiveRecord::Schema.define(version: 20120926132649) do
 
-  create_table "advert_selector_banners", :force => true do |t|
-    t.string   "name",                                  :null => false
+  create_table "advert_selector_banners", force: :cascade do |t|
+    t.string   "name",                               null: false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer  "priority",           :default => 0,     :null => false
+    t.integer  "priority",           default: 0,     null: false
     t.integer  "target_view_count"
-    t.integer  "running_view_count", :default => 0,     :null => false
+    t.integer  "running_view_count", default: 0,     null: false
     t.integer  "frequency"
-    t.boolean  "fast_mode",          :default => false, :null => false
+    t.boolean  "fast_mode",          default: false, null: false
     t.text     "comment"
-    t.boolean  "confirmed",          :default => false, :null => false
-    t.integer  "placement_id",                          :null => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.boolean  "confirmed",          default: false, null: false
+    t.integer  "placement_id",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "advert_selector_banners", ["end_time"], :name => "index_advert_selector_banners_on_end_time"
+  add_index "advert_selector_banners", ["end_time"], name: "index_advert_selector_banners_on_end_time"
 
-  create_table "advert_selector_helper_items", :force => true do |t|
+  create_table "advert_selector_helper_items", force: :cascade do |t|
     t.integer  "banner_id"
     t.integer  "position"
     t.string   "name"
     t.boolean  "content_for"
     t.text     "content"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "advert_selector_helper_items", ["banner_id", "position"], :name => "index_banner_position"
+  add_index "advert_selector_helper_items", ["banner_id", "position"], name: "index_banner_position"
 
-  create_table "advert_selector_placements", :force => true do |t|
-    t.string   "name",                         :null => false
+  create_table "advert_selector_placements", force: :cascade do |t|
+    t.string   "name",                         null: false
     t.boolean  "only_once_per_session"
     t.text     "conflicting_placements_array"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
