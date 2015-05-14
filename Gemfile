@@ -13,12 +13,7 @@ gem "jquery-rails"
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use debugger
-# gem 'ruby-debug'
-
-gem 'simple_form'
-gem 'acts_as_list'
-#gem 'pry'
+gem 'pry'
 gem 'timecop'
 gem 'mocha', :require => false
 

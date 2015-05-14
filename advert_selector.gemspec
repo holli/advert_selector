@@ -17,14 +17,12 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.0"
-  s.add_dependency "jquery-rails"
   s.add_dependency "simple_form"
   s.add_dependency "acts_as_list"
 
-  #s.add_development_dependency "jquery-rails"
+  s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
-  #s.add_development_dependency "pry"
   #s.add_development_dependency "mocha"
   #s.add_development_dependency "timecop"
 
