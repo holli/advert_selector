@@ -16,6 +16,8 @@ gem "jquery-rails"
 gem 'pry'
 gem 'timecop'
 gem 'mocha', :require => false
+gem 'rails-controller-testing'
+
 
 # For travis testing
 # http://schneems.com/post/50991826838/testing-against-multiple-rails-versions
