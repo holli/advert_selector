@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 module AdvertSelector
   class BannerTest < ActiveSupport::TestCase
-    fixtures :all
+    # fixtures :all
 
     setup do
       $advert_selector_avoid_cache = true

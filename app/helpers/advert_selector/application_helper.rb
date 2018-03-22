@@ -10,14 +10,14 @@ module AdvertSelector
 
         if params[:advert_selector_force]
           $advert_selector_banners_load_time = nil # reload everything
-          if (banner = Banner.find_by_id(params[:advert_selector_force])) && banner.start_time.to_i.to_s == params[:advert_selector_force_stamp]
-            advert_selector_banner_force(banner)
+          if (banner_found = Banner.find_by_id(params[:advert_selector_force])) && banner_found.start_time.to_i.to_s == params[:advert_selector_force_stamp]
+            advert_selector_banner_force(banner_found)
           end
         end
 
-        advert_selector_banners.each do |banner|
-          if available_placements == :all || available_placements.include?(banner.placement.name_sym)
-            advert_selector_banner_try(banner)
+        advert_selector_banners.each do |banner_iter|
+          if available_placements == :all || available_placements.include?(banner_iter.placement.name_sym)
+            advert_selector_banner_try(banner_iter)
           end
         end
 
@@ -27,7 +27,7 @@ module AdvertSelector
     end
 
     def advert_selector_force_test_infos
-      if @advert_selector_force_banner_infos
+      if defined?(@advert_selector_force_banner_infos) && @advert_selector_force_banner_infos
         content_tag :div, :id => "advert_selector_info", :class => 'alert alert-info', :style => "position: fixed; bottom: 5px;" do
           content_tag(:strong) { "AdvertSelectorInfos for HelperItems:<br/>".html_safe } +
           content_tag(:ul) {

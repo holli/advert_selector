@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 #require 'test/test_helper'
 
 class BannerShowsTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  # fixtures :all
 
   setup do
     @coke.reload

@@ -8,13 +8,9 @@ Dummy::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  if Rails.version.to_f < 4.2
-    config.serve_static_assets = true
-  else
-    config.serve_static_files = false
-  end
+  config.public_file_server.enabled = false
 
-  config.static_cache_control = "public, max-age=3600"
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -32,8 +28,11 @@ Dummy::Application.configure do
   config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the stderr
-  config.active_support.deprecation = :stderr
+  # config.active_support.deprecation = :stderr
+  # config.active_support.deprecation = :debug
+  config.active_support.deprecation = :log
 
   config.eager_load = false
   config.active_support.test_order = :random
+
 end

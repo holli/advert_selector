@@ -13,7 +13,7 @@ gem "jquery-rails"
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem 'pry'
+#gem 'pry'
 gem 'timecop'
 gem 'mocha', :require => false
 gem 'rails-controller-testing'

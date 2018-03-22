@@ -71,7 +71,7 @@ module AdvertSelector
 
     def running_view_count
       counter = Rails.cache.read(cache_key).to_i
-      counter = 0 if $advert_selector_avoid_cache
+      counter = 0 if defined?($advert_selector_avoid_cache) && $advert_selector_avoid_cache
       counter = self[:running_view_count] if counter < self[:running_view_count]
       counter
     end
