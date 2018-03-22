@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 5"
-  s.add_dependency "simple_form", "~> 0"
-  s.add_dependency "acts_as_list", "~> 0"
+  s.add_dependency "rails", ">= 5"
+  s.add_dependency "simple_form", ">= 3"
+  s.add_dependency "acts_as_list", ">= 0.6"
 
-  s.add_dependency "jquery-rails", "~> 0"
+  s.add_dependency "jquery-rails", ">= 3"
 
-  s.add_development_dependency "sqlite3", "~> 0"
+  s.add_development_dependency "sqlite3", ">= 1.3"
   #s.add_development_dependency 'rails-controller-testing'
   #s.add_development_dependency "mocha"
   #s.add_development_dependency "timecop"

@@ -1,11 +1,10 @@
-## 3.0.0 (2018-03-20)
+## 3.0.1 (2018-03-20)
 
   - Rails 5 support, dropped Rails 4 support
 
 ## 2.0.1 (2015-05-15)
 
   - Gemspec updates, see https://github.com/holli/advert_selector/issues/8 and https://github.com/holli/advert_selector/pull/10
-
 
 ## 2.0.0 (2014-07-29)
 
