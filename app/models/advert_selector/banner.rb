@@ -6,7 +6,7 @@ module AdvertSelector
 
     belongs_to :placement, :inverse_of => :banners
 
-    has_many :helper_items, -> { order(:position) }, :dependent => :destroy
+    has_many :helper_items, -> { order(:position) }, :dependent => :destroy, inverse_of: :banner
     accepts_nested_attributes_for :helper_items
 
     scope :find_future, lambda {

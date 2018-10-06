@@ -5,7 +5,7 @@ module AdvertSelector
     #belongs_to :master, :polymorphic => true
     #acts_as_list :scope => [:master_id, :master_type]
 
-    belongs_to :banner, :class_name => 'AdvertSelector::Banner'
+    belongs_to :banner, :class_name => 'AdvertSelector::Banner', inverse_of: :helper_items
     acts_as_list :scope => :banner_id
 
 
