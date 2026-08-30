@@ -17,7 +17,7 @@ Dummy::Application.configure do
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates
-  config.action_dispatch.show_exceptions = false
+  config.action_dispatch.show_exceptions = :none
 
   # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection    = false
@@ -34,5 +34,10 @@ Dummy::Application.configure do
 
   config.eager_load = false
   config.active_support.test_order = :random
+
+  # The dummy app never runs `assets:precompile`, so sprockets-rails has no
+  # manifest to check assets against. Without this, any asset_path/stylesheet
+  # lookup raises Sprockets::Rails::Helper::AssetNotPrecompiledError.
+  config.assets.check_precompiled_asset = false
 
 end

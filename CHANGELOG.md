@@ -1,3 +1,7 @@
+## 4.0.0 (2026-08-30)
+
+  - Rails 7.1, 7.2, 8.0 and 8.1 support, dropped Rails < 7.1 and Ruby < 3.1 support
+
 ## 3.0.1 (2018-03-20)
 
   - Rails 5 support, dropped Rails 4 support

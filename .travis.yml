@@ -1,8 +1,0 @@
-rvm:
-  - 2.4.3
-#  - 2.5.0
-before_script:
-  - 'RAILS_ENV=test bundle exec rake db:create db:schema:load --trace'
-env:
-  - "RAILS_VERSION=5.0.6"
-  - "RAILS_VERSION=5.1.2"

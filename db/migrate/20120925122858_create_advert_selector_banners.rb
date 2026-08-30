@@ -1,4 +1,4 @@
-class CreateAdvertSelectorBanners < ActiveRecord::Migration
+class CreateAdvertSelectorBanners < ActiveRecord::Migration[4.2]
   def change
     create_table :advert_selector_banners do |t|
       t.string :name, :null => false

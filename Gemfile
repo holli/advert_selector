@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in advert_selector.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -17,16 +17,16 @@ gemspec
 gem 'timecop'
 gem 'mocha', :require => false
 gem 'rails-controller-testing'
+gem 'sprockets-rails'
 
+gem "minitest", "~> 5.25"
+gem "sqlite3", "~> 2.1"
 
-# For travis testing
-# http://schneems.com/post/50991826838/testing-against-multiple-rails-versions
-rails_version = ENV["RAILS_VERSION"] || "default"
-
-case rails_version
-  when "default"
-    gem "rails"
-  else
-    gem "rails", "~> #{rails_version}"
-  end
+# Test against a specific Rails minor:  RAILS_VERSION=7.2 bundle install
+rails_version = ENV["RAILS_VERSION"]
+if rails_version
+  gem "rails", "~> #{rails_version}.0"
+else
+  gem "rails"
+end
 
