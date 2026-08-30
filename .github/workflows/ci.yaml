@@ -29,5 +29,10 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
+      # The dummy app's sqlite3 files are gitignored, so a fresh checkout has no
+      # database. test_helper adds the engine's own db/migrate to migrations_paths,
+      # and those three migrations then read as pending unless they are run here.
+      - name: Create db
+        run: RAILS_ENV=test bundle exec rake db:create db:migrate --trace
       - name: Run tests
         run: bundle exec rake
