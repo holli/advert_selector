@@ -6,9 +6,10 @@ test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/.sass-cache
 
-.idea
+.idea/
 .rvmrc
 
 *.gem
-.bundle
 Gemfile.lock
+
+projectFilesBackup/
