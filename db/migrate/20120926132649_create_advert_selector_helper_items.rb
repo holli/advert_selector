@@ -1,4 +1,4 @@
-class CreateAdvertSelectorHelperItems < ActiveRecord::Migration
+class CreateAdvertSelectorHelperItems < ActiveRecord::Migration[4.2]
   def change
     create_table :advert_selector_helper_items do |t|
       t.integer :banner_id

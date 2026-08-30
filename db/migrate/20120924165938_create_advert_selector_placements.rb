@@ -1,4 +1,4 @@
-class CreateAdvertSelectorPlacements < ActiveRecord::Migration
+class CreateAdvertSelectorPlacements < ActiveRecord::Migration[4.2]
   def change
     create_table :advert_selector_placements do |t|
       t.string :name, :null => false

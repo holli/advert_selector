@@ -35,9 +35,9 @@ module AdvertSelector
 
     after_save :after_save_update_conflicting_placements_info
     def after_save_update_conflicting_placements_info
-      if conflicting_placements_array_changed?
-        saved_org = Placement.conflicting_placements(conflicting_placements_array_change.first)
-        saved_new = Placement.conflicting_placements(conflicting_placements_array_change.last)
+      if saved_change_to_conflicting_placements_array?
+        saved_org = Placement.conflicting_placements(saved_change_to_conflicting_placements_array.first)
+        saved_new = Placement.conflicting_placements(saved_change_to_conflicting_placements_array.last)
 
         (saved_org-saved_new).each do |name|
           if placement = Placement.by_name(name).first
